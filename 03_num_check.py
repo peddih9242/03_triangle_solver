@@ -4,7 +4,7 @@ def num_check(question, error):
     while not valid:
         try:
             # ask user for number
-            response = float(question)
+            response = float(input(question))
             if response <= 0:
                 print(error)
             else:
@@ -15,3 +15,7 @@ def num_check(question, error):
             print(error)
 
 # main routine
+for item in range(3):
+    number = num_check("What number? ", "Please enter a number above 0")
+    print("You said {:.2f}".format(number))
+    print()
