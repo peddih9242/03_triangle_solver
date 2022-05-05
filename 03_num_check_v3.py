@@ -9,12 +9,14 @@ def num_check(question, error):
             if response <= 0:
                 print(error)
             else:
-                return ["%g"%(response), response]
+                return [response, "%g"%(response)]
         
         # if input is not a number print an error
         except ValueError:
             print(error)
 
+def format_numbers(number):
+    return "%g"%(number)
 # main routine
 for item in range(3):
     # get desired number
@@ -22,9 +24,9 @@ for item in range(3):
     
     # separate the returned list into a number that can be used
     # for printing, and the other for calculating
-    show_number = take_numbers[0]
-    calc_number = take_numbers[1]
-    
+    calc_number = take_numbers[0]
+    show_number = take_numbers[1]
+
     # print results
     print("You said {}".format(show_number))
     print()
