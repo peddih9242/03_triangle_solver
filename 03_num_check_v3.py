@@ -9,21 +9,22 @@ def num_check(question, error):
             if response <= 0:
                 print(error)
             else:
-                return response
+                return [response, "%g"%(response)]
         
         # if input is not a number print an error
         except ValueError:
             print(error)
 
-def trail_formatting(var_number):
-    return "%g"%(var_number)
-
 # main routine
 for item in range(3):
-    # get desired number and format it so that it doesn't have trailing 0s
+    # get desired number
     take_numbers = num_check("What number? ", "Please enter a number above 0")
-    no_zero = trail_formatting(take_numbers)
+    
+    # separate the returned list into a number that can be used
+    # for printing, and the other for calculating
+    calc_number = take_numbers[0]
+    show_number = take_numbers[1]
 
-    # show the inputted number and formatted number
-    print("Inputted number: {}".format(take_numbers))
-    print("Formatted number: {}".format(no_zero))
+    # print results
+    print("You said {}".format(show_number))
+    print()
