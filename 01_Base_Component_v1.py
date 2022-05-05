@@ -20,8 +20,7 @@ def string_checker(question, valid_list, error):
             print(error)
 
 
-# number checker, checks for float above 0 and prints both
-# a number for calculating and a number for printing
+# number checker, checks for float above 0
 def num_check(question, error):
     valid = False
     while not valid:
@@ -31,11 +30,15 @@ def num_check(question, error):
             if response <= 0:
                 print(error)
             else:
-                return ["%g"%(response), response]
+                return response
         
         # if input is not a number print an error
         except ValueError:
             print(error)
+
+# formats trailing 0s off floats
+def trail_formatting(var_number):
+    return "%g"%(var_number)
 
 
 

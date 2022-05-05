@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 # string checker, checks for valid input from a given list
 def string_checker(question, valid_list, error):
     # loop taking in input and string checking process
@@ -14,8 +16,7 @@ def string_checker(question, valid_list, error):
         else:
             print(error)
 
-# number checker, checks for float above 0 and prints both
-# a number for calculating and a number for printing
+# number checker, checks for float above 0
 def num_check(question, error):
     valid = False
     while not valid:
@@ -25,38 +26,46 @@ def num_check(question, error):
             if response <= 0:
                 print(error)
             else:
-                return [response, "%g"%(response)]
+                return response
         
         # if input is not a number print an error
         except ValueError:
             print(error)
+
+# formats trailing 0s off floats
+def trail_formatting(var_number):
+    return "%g"%(var_number)
 
 # main routine
 
 # set up valid string lists
 yes_no = ["yes", "no"]
 
-# ask if the user is trying to find the hypotenuse or not
-get_hypotenuse = string_checker("Are you trying to find the hypotenuse?", yes_no, "Please enter yes or no.")
+for item in range(2):
+    # ask if the user is trying to find the hypotenuse or not
+    get_hypotenuse = string_checker("Are you trying to find the hypotenuse?", yes_no, "Please enter yes or no.")
 
-# take in length of given sides and calculate length of desired side
+    # take in length of given sides and calculate length of desired side
 
-if get_hypotenuse == "yes":
-    side_length = num_check("What is the length of side 1? ", "Please enter a number above 0.")
-    side_1 = side_length[0]
-    
-    side_length_2 = num_check("What is the length of side 2? ", "Please enter a number above 0.")
-    side_2 = side_length_2[0]
-    
-    desired_side = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
+    if get_hypotenuse == "yes":
 
-if get_hypotenuse == "no":
-    side_length = num_check("What is the length of the hypotenuse? ", "Please enter a number above 0.")
-    hypotenuse = side_length[0]
-    
-    side_length_2 = num_check("What is the length of the other side? ", "Please enter a number above 0.")
-    side_1 = side_length_2[0]
-    
-    desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
+        side_1 = num_check("What is the length of side 1? ", "Please enter a number above 0.")   
+        side_2 = num_check("What is the length of side 2? ", "Please enter a number above 0.")
+        
+        desired_side = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
 
-print("The length of your missing side is: {}".format(desired_side))
+    if get_hypotenuse == "no":
+
+        hypotenuse = num_check("What is the length of the hypotenuse? ", "Please enter a number above 0.")    
+        side_1 = num_check("What is the length of the other side? ", "Please enter a number above 0.")
+        
+        desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
+
+    # print missing side length
+    desired_side = decimal.Decimal(desired_side)
+
+    desired_side = trail_formatting(desired_side)
+
+
+    print("The length of your missing side is: {}".format(desired_side))
+    print()
