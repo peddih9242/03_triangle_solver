@@ -20,17 +20,29 @@ def string_checker(question, valid_list, error):
             print(error)
 
 
-# number checker, checks for float above 0
-def num_check(question, error):
+# number checker, checks for float above 0 and below high if given
+def num_check(question, error, high=None):
+    
+    if high:
+        have_high = True
+
     valid = False
     while not valid:
         try:
             # ask user for number
             response = float(input(question))
+            
+            # check that number is above 0 and lower than high if given
             if response <= 0:
                 print(error)
-            else:
-                return response
+                continue
+            
+            if have_high:
+                if response >= high:
+                    print(error)
+                    continue
+            
+            return response
         
         # if input is not a number print an error
         except ValueError:
