@@ -36,10 +36,15 @@ def num_check(question, error):
         except ValueError:
             print(error)
 
+
 # formats trailing 0s off floats
 def trail_formatting(var_number):
     return "%g"%(var_number)
 
 
+# function to round numbers to 2dp
+def round_2dp(want_round):
+    return round(want_round, 2)
 
 # main routine
+

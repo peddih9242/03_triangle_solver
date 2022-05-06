@@ -1,4 +1,4 @@
-from decimal import Decimal
+import decimal
 
 # string checker, checks for valid input from a given list
 def string_checker(question, valid_list, error):
@@ -36,6 +36,10 @@ def num_check(question, error):
 def trail_formatting(var_number):
     return "%g"%(var_number)
 
+# function to round numbers to 2dp
+def round_2dp(want_round):
+    return round(want_round, 2)
+
 # main routine
 
 # set up valid string lists
@@ -62,10 +66,8 @@ for item in range(2):
         desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
 
     # print missing side length
-    desired_side = decimal.Decimal(desired_side)
-
+    desired_side = round_2dp(desired_side)
     desired_side = trail_formatting(desired_side)
-
 
     print("The length of your missing side is: {}".format(desired_side))
     print()
