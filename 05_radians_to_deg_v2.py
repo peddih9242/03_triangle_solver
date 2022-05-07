@@ -47,16 +47,12 @@ def string_checker(question, valid_list, error):
         else:
             print(error)
 
-def to_rad(angle):
-    return angle * math.pi/180
-
 # main routine
 
 opposite_length = 5
 for item in range (2):
     get_angle = num_check("Enter your angle: ", "Please enter an angle between 0 and 90.", 90)
-    rad_angle = to_rad(get_angle)
 
-    missing_length = opposite_length / math.sin(rad_angle)
+    missing_length = opposite_length / math.sin(math.radians(get_angle))
 
     print("Missing side length: {:.2f}".format(missing_length))

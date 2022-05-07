@@ -1,7 +1,7 @@
 import math
 
 a = 5
-b = 360
+b = 70
 
-c = math.cos(a)
+c = a / math.asin(b)
 print(c)
