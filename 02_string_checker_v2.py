@@ -1,7 +1,6 @@
 # string checker, checks for valid input from a given list
 def string_checker(question, valid_list, error):
     
-    count = 0
     # loop taking in input and string checking process
     valid = False
     while not valid:
@@ -20,8 +19,6 @@ def string_checker(question, valid_list, error):
             return response
         else:
             print(error)
-        
-        count += 1
 
 # main routine
 

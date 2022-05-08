@@ -3,19 +3,25 @@
 
 # functions
 
-# string checker, checks for valid input from a given list
+# string checker, checks for valid input from mini lists
 def string_checker(question, valid_list, error):
+    
     # loop taking in input and string checking process
     valid = False
     while not valid:
-
+        
         # take input
         response = input(question).lower()
 
         # compare response with items in list
-        for item in valid_list:
-            if response == item or response == item[0]:
-                return item
+        for var_list in valid_list:
+            if response in var_list:
+                response = var_list[0]
+                valid = True
+            else:
+                valid = False
+        if valid == True:
+            return response
         else:
             print(error)
 
