@@ -1,4 +1,4 @@
-# string checker, checks for valid input from a given list
+# string checker, checks for valid input from mini lists
 def string_checker(question, valid_list, error):
     
     # loop taking in input and string checking process
@@ -13,8 +13,11 @@ def string_checker(question, valid_list, error):
             if response in var_list:
                 response = var_list[0]
                 valid = True
+                break
             else:
                 valid = False
+        
+        # if response is found to be valid, return first item in valid list otherwise print error
         if valid == True:
             return response
         else:
@@ -22,7 +25,11 @@ def string_checker(question, valid_list, error):
 
 # main routine
 
-yes_no = ["yes", "no"]
+yes_no = [
+    ["yes", "sure", "okay"],
+    ["no"]
+    ]
+    
 for item in range(5):
     test_function = string_checker("Yes or no? ", yes_no, "Please enter yes or no")
     print("You said {}".format(test_function))
