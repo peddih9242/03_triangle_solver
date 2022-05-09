@@ -46,8 +46,11 @@ def string_checker(question, valid_list, error):
             if response in var_list:
                 response = var_list[0]
                 valid = True
+                break
             else:
                 valid = False
+        
+        # if response is found to be valid, return first item in valid list otherwise print error
         if valid == True:
             return response
         else:
@@ -56,11 +59,16 @@ def string_checker(question, valid_list, error):
 # main routine
 
 side_angle = [
-    ["length", "side length", "width"]
+    ["length", "side length", "width"],
     ["angle", "angle size"]
     ]
 
-
+trig_valid = [
+    ["sin"],
+    ["cos"],
+    ["tan"]
+]
 
 angle_length = string_checker("Are you trying to find a side or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
 
+which_trig = string_checker("Are you using sin, cos or tan? ", trig_valid, "Please enter sin, cos or tan.")
