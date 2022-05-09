@@ -58,6 +58,7 @@ def string_checker(question, valid_list, error):
 
 # main routine
 
+# string checking lists
 side_angle = [
     ["length", "side length", "width"],
     ["angle", "angle size"]
@@ -69,6 +70,26 @@ trig_valid = [
     ["tan"]
 ]
 
+side_valid = [
+    ["hypotenuse", "hyp"],
+    ["opposite", "opp"],
+    ["adjacent", "adj"]
+]
+
+# use questions to set up future questions
 angle_length = string_checker("Are you trying to find a side or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
 
 which_trig = string_checker("Are you using sin, cos or tan? ", trig_valid, "Please enter sin, cos or tan.")
+
+if angle_length == "angle":
+    side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
+    side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
+    if which_trig == "sin":
+        desired_result = math.asin(side_1 / side_2)
+    elif which_trig == "cos":
+        desired_result = math.acos(side_1 / side_2)
+    else:
+        desired_result = math.atan(side_1 / side_2)
+
+if angle_length == "length":
+    which_side = string_checker("Do you have the hypotenuse, opposite or adjacent?", side_valid, "Please enter a valid option.")
