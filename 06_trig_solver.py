@@ -5,6 +5,8 @@ import math
 # number checker, checks for float above 0 and below high if given
 def num_check(question, error, high=None):
     
+    have_high = False
+
     if high:
         have_high = True
 
@@ -77,19 +79,50 @@ side_valid = [
 ]
 
 # use questions to set up future questions
-angle_length = string_checker("Are you trying to find a side or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
+angle_length = string_checker("Are you trying to find an angle or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
 
 which_trig = string_checker("Are you using sin, cos or tan? ", trig_valid, "Please enter sin, cos or tan.")
 
 if angle_length == "angle":
-    side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
-    side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
+    # get what is needed to calculate the angle, calculate and then print to user
     if which_trig == "sin":
+        side_1 = num_check("Length of the opposite side: ", "Please enter a number above 0.")
+        side_2 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
         desired_result = math.asin(side_1 / side_2)
     elif which_trig == "cos":
-        desired_result = math.acos(side_1 / side_2)
+        side_1 = num_check("Length of the adjacent side: ", "Please enter a number above 0.")
+        side_2 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
+        desired_result = math.acos(side_1 / side_2)    
     else:
-        desired_result = math.atan(side_1 / side_2)
+        side_1 = num_check("Length of the opposite side: ", "Please enter a number above 0.")
+        side_2 = num_check("Length of the adjacent side: ", "Please enter a number above 0.")
+        desired_result = math.atan(side_1 / side_2)    
+
+    desired_result = math.degrees(desired_result)
+
+    print("Your angle has a size of {:.2f} degrees".format(desired_result))
 
 if angle_length == "length":
-    which_side = string_checker("Do you have the hypotenuse, opposite or adjacent?", side_valid, "Please enter a valid option.")
+    
+    # get what is needed to calculate the length, calculate and then print to user
+    which_side = string_checker("Do you have the hypotenuse, opposite or adjacent? ", side_valid, "Please enter a valid option.")
+    side_1 = num_check("How long is your side? ", "Please enter a number above 0.")
+    angle_size = num_check("How big is your angle? ", "Please enter a number above 0.", 90)
+
+    if which_trig == "sin":
+        if which_side == "hypotenuse":
+            desired_result = side_1 * math.sin(math.radians(angle_size))
+        else:
+            desired_result = side_1 /  math.sin(math.radians(angle_size))
+    elif which_trig == "cos":
+        if which_side == "hypotenuse":
+            desired_result = side_1 * math.cos(math.radians(angle_size))
+        else:
+            desired_result = side_1 / math.cos(math.radians(angle_size))
+    else:
+        if which_side == "adjacent":
+            desired_result = side_1 * math.tan(math.radians(angle_size))
+        else:
+            desired_result = side_1 / math.tan(math.radians(angle_size))
+    
+    print("Your side length is: {:.2f}".format(desired_result))
