@@ -58,26 +58,7 @@ def string_checker(question, valid_list, error):
         else:
             print(error)
 
-# main routine
-
-# string checking lists
-side_angle = [
-    ["length", "side length", "width"],
-    ["angle", "angle size"]
-    ]
-
-trig_valid = [
-    ["sin"],
-    ["cos"],
-    ["tan"]
-]
-
-side_valid = [
-    ["hypotenuse", "hyp"],
-    ["opposite", "opp"],
-    ["adjacent", "adj"]
-]
-for item in range(2):
+def get_answer():
     # use questions to set up future questions
     angle_length = string_checker("Are you trying to find an angle or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
 
@@ -104,7 +85,6 @@ for item in range(2):
         desired_result = math.degrees(desired_result)
 
         print("Your angle has a size of {:.2f} degrees".format(desired_result))
-        print()
 
     invalid_side = False
     trig_loop = True
@@ -136,17 +116,17 @@ for item in range(2):
 
                 elif which_side == "adjacent":
                     desired_result = side_1 / math.cos(math.radians(angle_size))
-
+                
                 else:
                     invalid_side = True
 
             else:
                 if which_side == "adjacent":
                     desired_result = side_1 * math.tan(math.radians(angle_size))
-
+                
                 elif which_side == "opposite":
                     desired_result = side_1 / math.tan(math.radians(angle_size))
-
+                
                 else:
                     invalid_side = True
 
@@ -158,5 +138,27 @@ for item in range(2):
                 continue
 
             print("Your side length is: {:.2f}".format(desired_result))
-            print()
             break
+
+
+# main routine
+
+# string checking lists
+side_angle = [
+    ["length", "side length", "width"],
+    ["angle", "angle size"]
+    ]
+
+trig_valid = [
+    ["sin"],
+    ["cos"],
+    ["tan"]
+]
+
+side_valid = [
+    ["hypotenuse", "hyp"],
+    ["opposite", "opp"],
+    ["adjacent", "adj"]
+]
+
+get_answer()
