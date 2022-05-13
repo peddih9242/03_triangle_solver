@@ -83,8 +83,7 @@ def get_answer():
             desired_result = math.atan(side_1 / side_2)    
 
         desired_result = math.degrees(desired_result)
-
-        print("Your angle has a size of {:.2f} degrees".format(desired_result))
+        return desired_result
 
     invalid_side = False
     trig_loop = True
@@ -131,14 +130,11 @@ def get_answer():
                     invalid_side = True
 
             if desired_result != 0:
-                invalid_side = False
+                return desired_result
 
             if invalid_side:
                 print("You need to enter a valid side!")
                 continue
-
-            print("Your side length is: {:.2f}".format(desired_result))
-            break
 
 
 # main routine
@@ -161,4 +157,6 @@ side_valid = [
     ["adjacent", "adj"]
 ]
 
-get_answer()
+trig_answer = get_answer()
+
+print("Your answer is: {:.2f}".format(trig_answer))
