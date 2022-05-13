@@ -33,6 +33,8 @@ def string_checker(question, valid_list, error):
 # number checker, checks for float above 0 and below high if given
 def num_check(question, error, high=None):
     
+    have_high = False
+
     if high:
         have_high = True
 

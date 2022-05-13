@@ -50,3 +50,6 @@ def unit_format(format_num, unit):
 number = num_check("What number? ", "Please enter a number above 0")
 
 unit = not_blank("What unit? ", "Please don't leave this blank!")
+
+formatted = unit_format(number, unit)
+print(formatted)
