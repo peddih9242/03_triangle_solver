@@ -58,7 +58,7 @@ def string_checker(question, valid_list, error):
         else:
             print(error)
 
-def get_answer():
+def trig_answer():
     # use questions to set up future questions
     angle_length = string_checker("Are you trying to find an angle or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
 
@@ -157,6 +157,6 @@ side_valid = [
     ["adjacent", "adj"]
 ]
 
-trig_answer = get_answer()
+get_answer = trig_answer()
 
 print("Your answer is: {:.2f}".format(trig_answer))
