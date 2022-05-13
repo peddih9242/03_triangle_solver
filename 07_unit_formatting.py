@@ -3,6 +3,8 @@
 # number checker, checks for float above 0 and below high if given
 def num_check(question, error, high=None):
     
+    have_high = False
+
     if high:
         have_high = True
 
@@ -12,7 +14,7 @@ def num_check(question, error, high=None):
             # ask user for number
             response = float(input(question))
             
-            # check that number is above
+            # check that number is above 0 and lower than high if given
             if response <= 0:
                 print(error)
                 continue

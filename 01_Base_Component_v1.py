@@ -77,7 +77,7 @@ def get_answer():
     which_trig = string_checker("Are you using sin, cos or tan? ", trig_valid, "Please enter sin, cos or tan.")
 
     if angle_length == "angle":
-        
+
         # get what is needed to calculate the angle, calculate and then print to user
         if which_trig == "sin":
             side_1 = num_check("Length of the opposite side: ", "Please enter a number above 0.")
@@ -95,6 +95,9 @@ def get_answer():
             desired_result = math.atan(side_1 / side_2)    
 
         desired_result = math.degrees(desired_result)
+
+        desired_result = unit_format(desired_result, "°")
+
         return desired_result
 
     invalid_side = False
@@ -110,6 +113,8 @@ def get_answer():
             if not invalid_side:
                 side_1 = num_check("How long is your side? ", "Please enter a number above 0.")
                 angle_size = num_check("How big is your angle? ", "Please enter a number above 0.", 90)
+            
+            desired_result = string_checker("")
 
             if which_trig == "sin":
                 if which_side == "hypotenuse":
@@ -162,6 +167,9 @@ def not_blank(question, error):
         else:
             print(error)
 
+def unit_format(format_num, unit):
+    return "{} {}".format(format_num, unit)
+
 # main routine
 
 # string checking lists
@@ -182,3 +190,13 @@ side_valid = [
     ["adjacent", "adj"]
 ]
 
+valid_units = [
+    ["cm", "centimetres", "centimetre", "centimeters", "centimeter"],
+    ["km", "kilometres", "kilometre", "kilometers", "kilometer"],
+    ["mm", "millimetres", "millimetre", "millimeters", "millimeter"],
+    ["m", "metres", "metre", "meters", "meter"],
+    ["mi", "miles", "mile"],
+    ["in", "inches", "inch"],
+    ["megametre", "megameter", "megametres", "megameters"]
+    ["yards", "yds", "yd"]
+]
