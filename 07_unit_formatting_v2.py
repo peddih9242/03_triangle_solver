@@ -78,8 +78,9 @@ def unit_format(format_num, unit):
 # main routine
 
 # valid units for the user's answer
+
 valid_units = [
-    ["degrees", "d"],
+    ["°", "degrees", "d"],
     ["cm", "centimetres", "centimetre", "centimeters", "centimeter"],
     ["km", "kilometres", "kilometre", "kilometers", "kilometer"],
     ["mm", "millimetres", "millimetre", "millimeters", "millimeter"],
@@ -89,7 +90,6 @@ valid_units = [
     ["megametre", "megameter", "megametres", "megameters"]
     ["yards", "yds", "yd"]
 ]
-
 
 for item in range(3):
 
