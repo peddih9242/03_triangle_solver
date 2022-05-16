@@ -40,6 +40,34 @@ def trail_formatting(var_number):
 def round_2dp(want_round):
     return round(want_round, 2)
 
+def pythagoras_ans():
+    # ask if the user is trying to find the hypotenuse or not
+    get_hypotenuse = string_checker("Are you trying to find the hypotenuse?", yes_no, "Please enter yes or no.")
+
+    # take in length of given sides and calculate length of desired side
+
+    if get_hypotenuse == "yes":
+
+        side_1 = num_check("What is the length of side 1? ", "Please enter a number above 0.")   
+        side_2 = num_check("What is the length of side 2? ", "Please enter a number above 0.")
+        
+        desired_side = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
+
+    if get_hypotenuse == "no":
+
+        hypotenuse = num_check("What is the length of the hypotenuse? ", "Please enter a number above 0.")    
+        side_1 = num_check("What is the length of the other side? ", "Please enter a number above 0.")
+        
+        desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
+
+    # print missing side length
+    desired_side = round_2dp(desired_side)
+    desired_side = trail_formatting(desired_side)
+
+    print("The length of your missing side is: {}".format(desired_side))
+    print()
+
+    
 # main routine
 
 # set up valid string lists

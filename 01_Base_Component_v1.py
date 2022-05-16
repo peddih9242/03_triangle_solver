@@ -32,7 +32,7 @@ def string_checker(question, valid_list, error):
 
 # number checker, checks for float above 0 and below high if given
 def num_check(question, error, high=None):
-    
+
     have_high = False
 
     if high:
@@ -48,14 +48,14 @@ def num_check(question, error, high=None):
             if response <= 0:
                 print(error)
                 continue
-            
+
             if have_high:
                 if response >= high:
                     print(error)
                     continue
-            
+
             return response
-        
+
         # if input is not a number print an error
         except ValueError:
             print(error)
@@ -65,11 +65,7 @@ def num_check(question, error, high=None):
 def trail_formatting(var_number):
     return "%g"%(var_number)
 
-
-# function to round numbers to 2dp
-def round_2dp(want_round):
-    return round(want_round, 2)
-
+# gets answer for trigonometry
 def trig_answer():
     # use questions to set up future questions
     angle_length = string_checker("Are you trying to find an angle or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
@@ -169,12 +165,42 @@ def not_blank(question, error):
         else:
             print(error)
 
+# gets answer for pythagoras
+def pythagoras_ans():
+    # ask if the user is trying to find the hypotenuse or not
+    get_hypotenuse = string_checker("Are you trying to find the hypotenuse? ", yes_no, "Please enter yes or no.")
+
+    # take in length of given sides and calculate length of desired side
+
+    if get_hypotenuse == "yes":
+
+        side_1 = num_check("What is the length of side 1? ", "Please enter a number above 0.")   
+        side_2 = num_check("What is the length of side 2? ", "Please enter a number above 0.")
+        
+        desired_side = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
+
+    elif get_hypotenuse == "no":
+
+        hypotenuse = num_check("What is the length of the hypotenuse? ", "Please enter a number above 0.")    
+        side_1 = num_check("What is the length of the other side? ", "Please enter a number above 0.")
+        
+        desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
+    
+    return desired_side
+
 def unit_format(format_num, unit):
     return "{} {}".format(format_num, unit)
+
 
 # main routine
 
 # string checking lists
+
+yes_no = [
+    ["yes", "y"],
+    ["no", "n"]
+]
+
 side_angle = [
     ["length", "side length", "width"],
     ["angle", "angle size"]
@@ -199,8 +225,8 @@ valid_units = [
     ["m", "metres", "metre", "meters", "meter"],
     ["mi", "miles", "mile"],
     ["in", "inches", "inch"],
-    ["megametre", "megameter", "megametres", "megameters"]
-    ["yds", "yards", "yd", "yard"]
+    ["megametre", "megameter", "megametres", "megameters"],
+    ["yds", "yards", "yd", "yard"],
     ["ft", "foot", "feet"]
 ]
 
@@ -213,3 +239,8 @@ trig_pyth_valid = [
 pythag_trig = string_checker("Do you need to use pythagoras or trigonometry? ", trig_pyth_valid, "Please enter a valid option.")
 
 if pythag_trig == "trig":
+    answer = trig_answer()
+else:
+    answer = pythagoras_ans()
+
+print("Your answer is: {:.2f}".format(answer))
