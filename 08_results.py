@@ -1,3 +1,5 @@
+import pandas
+
 # string checker, checks for valid input from mini lists
 def string_checker(question, valid_list, error):
     
@@ -23,28 +25,23 @@ def string_checker(question, valid_list, error):
         else:
             print(error)
 
-# blank checking function, checks if a string input is blank
-def not_blank(question, error):
-    
-    var_loop = True
-    while var_loop:
-        
-    # take in response and check if it is blank
-        response = input(question).lower()
-        
-        if response != "":
-            return response
-        else:
-            print(error)
+trig_pythag = ["Pythagoras", "Trigonometry"]
+length_1 = [3, 6]
+length_2 = [4, "N/A"]
+angle = ["N/A", 53]
 
-# main routine
+which_trig = ["N/A", "cos"]
+answer = [5, 3.61]
 
-yes_no = [
-    ["yes", "sure", "okay"],
-    ["no"]
-    ]
-    
-for item in range(5):
-    test_function = string_checker("Yes or no? ", yes_no, "Please enter yes or no")
-    print("You said {}".format(test_function))
-    print()
+results_dict = {
+    "Calculation Type": trig_pythag,
+    "Length 1": length_1,
+    "Length 2": length_2,
+    "Angle": angle,
+    "Trig Type": which_trig,
+    "Answer": answer
+}
+
+results_frame = pandas.DataFrame(results_dict, columns = ['Calculation Type', 'Length 1', 'Length 2', 'Angle', 'Trig Type', 'Answer'])
+results_frame = results_frame.set_index('Calculation Type')
+print(results_frame)

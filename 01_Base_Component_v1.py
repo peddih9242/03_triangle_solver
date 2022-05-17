@@ -18,13 +18,13 @@ def string_checker(question, valid_list, error):
         for var_list in valid_list:
             if response in var_list:
                 response = var_list[0]
-                valid = True
+                var_valid = True
                 break
             else:
-                valid = False
+                var_valid = False
         
         # if response is found to be valid, return first item in valid list otherwise print error
-        if valid == True:
+        if var_valid == True:
             return response
         else:
             print(error)
