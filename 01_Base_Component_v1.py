@@ -185,7 +185,7 @@ def pythagoras_ans():
         side_1 = num_check("What is the length of the other side? ", "Please enter a number above 0.")
         
         desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
-    
+
     return desired_side
 
 def unit_format(format_num, unit):

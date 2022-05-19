@@ -25,13 +25,18 @@ def string_checker(question, valid_list, error):
         else:
             print(error)
 
+def unit_format(format_num, unit):
+    return "{} {}".format(format_num, unit)
+
+# main routine
+
 trig_pythag = ["Pythagoras", "Trigonometry"]
 length_1 = [3, 6]
 length_2 = [4, "N/A"]
 angle = ["N/A", 53]
-
 which_trig = ["N/A", "cos"]
 answer = [5, 3.61]
+
 
 results_dict = {
     "Calculation Type": trig_pythag,
