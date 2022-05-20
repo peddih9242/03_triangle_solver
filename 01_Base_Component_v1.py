@@ -93,6 +93,7 @@ def trig_answer():
         # format the answer and return
         desired_result = math.degrees(desired_result)
         desired_result = unit_format(desired_result, "°")
+        answer.append(desired_result)
         return desired_result
 
     invalid_side = False
@@ -145,6 +146,7 @@ def trig_answer():
             # format answer if calculated and return
             if desired_result != 0:
                 desired_result = unit_format(desired_result, length_unit)
+                answer.append(desired_result)
                 return desired_result
 
             if invalid_side:
@@ -186,6 +188,7 @@ def pythagoras_ans():
         
         desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
 
+    answer.append(desired_side)
     return desired_side
 
 def unit_format(format_num, unit):
@@ -235,8 +238,26 @@ trig_pyth_valid = [
     ["pythagoras", "pythagoras theorem"]
 ]
 
+trig_pythag = []
+length_1 = []
+length_2 = []
+angle = []
+which_trig = []
+answer = []
+
+# set up dictionary for results
+results_dict = {
+    "Calculation Type": trig_pythag,
+    "Length 1": length_1,
+    "Length 2": length_2,
+    "Angle": angle,
+    "Trig Type": which_trig,
+    "Answer": answer
+}
+
 # ask if user wants to use pythagoras or trig
 pythag_trig = string_checker("Do you need to use pythagoras or trigonometry? ", trig_pyth_valid, "Please enter a valid option.")
+trig_pythag.append(pythag_trig)
 
 if pythag_trig == "trig":
     answer = trig_answer()
