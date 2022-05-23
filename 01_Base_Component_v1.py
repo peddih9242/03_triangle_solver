@@ -1,6 +1,7 @@
 # import modules
 
 import math
+import pandas
 
 # functions
 
@@ -63,6 +64,7 @@ def num_check(question, error, high=None):
 
 # formats trailing 0s off floats
 def trail_formatting(var_number):
+    var_number = round(var_number, 2)
     return "%g"%(var_number)
 
 # gets answer for trigonometry
@@ -70,19 +72,22 @@ def trig_answer():
     # use questions to set up future questions
     angle_length = string_checker("Are you trying to find an angle or length? ", side_angle, "Please enter a valid option ('side' or 'angle').")
 
-    which_trig = string_checker("Are you using sin, cos or tan? ", trig_valid, "Please enter sin, cos or tan.")
+    soh_cah_toa = string_checker("Are you using sin, cos or tan? ", trig_valid, "Please enter sin, cos or tan.")
+    which_trig.append(soh_cah_toa)
 
     if angle_length == "angle":
 
+        angle.append("N/A")
+
         # get what is needed to calculate the angle, calculate and then print to user
-        if which_trig == "sin":
-            side_1 = num_check("Length of the opposite side: ", "Please enter a number above 0.")
+        if soh_cah_toa == "sin":
             side_2 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
+            side_1 = num_check("Length of the opposite side: ", "Please enter a number above 0 and below the hypotenuse length.", side_2)
             desired_result = math.asin(side_1 / side_2)
         
-        elif which_trig == "cos":
-            side_1 = num_check("Length of the adjacent side: ", "Please enter a number above 0.")
+        elif soh_cah_toa == "cos":
             side_2 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
+            side_1 = num_check("Length of the adjacent side: ", "Please enter a number above 0 and below the hypotenuse length.", side_2)
             desired_result = math.acos(side_1 / side_2)    
         
         else:
@@ -90,9 +95,15 @@ def trig_answer():
             side_2 = num_check("Length of the adjacent side: ", "Please enter a number above 0.")
             desired_result = math.atan(side_1 / side_2)    
 
-        # format the answer and return
+        # set up numbers to be printed and append to list
         desired_result = math.degrees(desired_result)
+        desired_result = trail_formatting(desired_result)
         desired_result = unit_format(desired_result, "°")
+        side_1 = trail_formatting(side_1)
+        side_2 = trail_formatting(side_2)
+        
+        length_1.append(side_1)
+        length_2.append(side_2)
         answer.append(desired_result)
         return desired_result
 
@@ -102,18 +113,18 @@ def trig_answer():
 
     while trig_loop:
         if angle_length == "length":
-            
+            length_2.append("N/A")
             # get what is needed to calculate the length
             which_side = string_checker("Do you have the hypotenuse, opposite or adjacent? ", side_valid, "Please enter a valid option.")
 
             if not invalid_side:
                 side_1 = num_check("How long is your side? ", "Please enter a number above 0.")
                 angle_size = num_check("How big is your angle? ", "Please enter a number above 0.", 90)
-            
+
             length_unit = string_checker("What unit is your length in? ", valid_units, "Please enter a valid unit!")
 
             # calculate length
-            if which_trig == "sin":
+            if soh_cah_toa == "sin":
                 if which_side == "hypotenuse":
                     desired_result = side_1 * math.sin(math.radians(angle_size))
 
@@ -123,7 +134,7 @@ def trig_answer():
                 else:
                     invalid_side = True
 
-            elif which_trig == "cos":
+            elif soh_cah_toa == "cos":
                 if which_side == "hypotenuse":
                     desired_result = side_1 * math.cos(math.radians(angle_size))
 
@@ -145,7 +156,16 @@ def trig_answer():
 
             # format answer if calculated and return
             if desired_result != 0:
+
+                # set up numbers to be printed and append to list
+                desired_result = trail_formatting(desired_result)
+                angle_size = trail_formatting(angle_size)
+                side_1 = trail_formatting(side_1)
+
                 desired_result = unit_format(desired_result, length_unit)
+                
+                length_1.append(side_1)
+                angle.append(angle_size)
                 answer.append(desired_result)
                 return desired_result
 
@@ -169,6 +189,9 @@ def not_blank(question, error):
 
 # gets answer for pythagoras
 def pythagoras_ans():
+
+    angle.append("N/A")
+    which_trig.append("N/A")
     # ask if the user is trying to find the hypotenuse or not
     get_hypotenuse = string_checker("Are you trying to find the hypotenuse? ", yes_no, "Please enter yes or no.")
 
@@ -183,11 +206,18 @@ def pythagoras_ans():
 
     elif get_hypotenuse == "no":
 
-        hypotenuse = num_check("What is the length of the hypotenuse? ", "Please enter a number above 0.")    
-        side_1 = num_check("What is the length of the other side? ", "Please enter a number above 0.")
+        side_1 = num_check("What is the length of the hypotenuse? ", "Please enter a number above 0.")    
+        side_2 = num_check("What is the length of the other side? ", "Please enter a number above 0 and below the hypotenuse length.", side_1)
         
-        desired_side = ((hypotenuse ** 2) - (side_1 ** 2)) ** 0.5
+        desired_side = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
 
+    # set up numbers to be printed and append to list
+    side_1 = trail_formatting(side_1)
+    side_2 = trail_formatting(side_2)
+    desired_side = trail_formatting(desired_side)
+
+    length_1.append(side_1)
+    length_2.append(side_2)
     answer.append(desired_side)
     return desired_side
 
@@ -234,8 +264,8 @@ valid_units = [
 ]
 
 trig_pyth_valid = [
-    ["trig", "trigonometry"],
-    ["pythagoras", "pythagoras theorem"]
+    ["trigonometry", "trig"],
+    ["pythagoras", "pythagoras theorem", "pythag"]
 ]
 
 trig_pythag = []
@@ -255,13 +285,19 @@ results_dict = {
     "Answer": answer
 }
 
-# ask if user wants to use pythagoras or trig
-pythag_trig = string_checker("Do you need to use pythagoras or trigonometry? ", trig_pyth_valid, "Please enter a valid option.")
-trig_pythag.append(pythag_trig)
+keep_going = "yes"
+while keep_going == "yes":
+    # ask if user wants to use pythagoras or trig
+    pythag_trig = string_checker("Do you need to use pythagoras or trigonometry? ", trig_pyth_valid, "Please enter a valid option.")
+    trig_pythag.append(pythag_trig.title())
 
-if pythag_trig == "trig":
-    answer = trig_answer()
-else:
-    answer = pythagoras_ans()
+    if pythag_trig == "trigonometry":
+        calc_answer = trig_answer()
+    else:
+        calc_answer = pythagoras_ans()
+    print("Your answer is:", calc_answer)
+    keep_going = string_checker("Do you want to do another calculation? ", yes_no, "Please enter yes or no.")
 
-print("Your answer is: {:.2f}".format(answer))
+results_frame = pandas.DataFrame(results_dict, columns = ['Calculation Type', 'Length 1', 'Length 2', 'Angle', 'Trig Type', 'Answer'])
+results_frame = results_frame.set_index('Calculation Type')
+print(results_frame)
