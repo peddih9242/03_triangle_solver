@@ -237,20 +237,20 @@ yes_no = [
 ]
 
 side_angle = [
-    ["length", "side length", "width", "side"],
-    ["angle", "angle size"]
+    ["length", "side length", "width", "side", "l"],
+    ["angle", "angle size", "a"]
     ]
 
 trig_valid = [
-    ["sin"],
-    ["cos"],
-    ["tan"]
+    ["sin", "s"],
+    ["cos", "c"],
+    ["tan", "t"]
 ]
 
 side_valid = [
-    ["hypotenuse", "hyp"],
-    ["opposite", "opp"],
-    ["adjacent", "adj"]
+    ["hypotenuse", "hyp", "h"],
+    ["opposite", "opp", "o"],
+    ["adjacent", "adj", "a"]
 ]
 
 valid_units = [
@@ -266,8 +266,8 @@ valid_units = [
 ]
 
 trig_pyth_valid = [
-    ["trigonometry", "trig"],
-    ["pythagoras", "pythagoras theorem", "pythag"]
+    ["trigonometry", "trig", "t"],
+    ["pythagoras", "pythagoras theorem", "pythag", "p"]
 ]
 
 trig_pythag = []

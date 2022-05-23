@@ -1,0 +1,9 @@
+User notes
+ - she typed 't' for trig and it did not work (would have typed 'p' for pythagoras)
+- she typed 'l' for length and it did not work
+- she did not know which trip option to use (sin / cos / tan) - said she had an angle and one of the sides <the opposite>
+- she typed 'h' for hypotenuse
+
+
+note:
+maybe don't show N/A and calculate the thing that's not given?
