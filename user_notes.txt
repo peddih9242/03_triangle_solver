@@ -5,5 +5,9 @@ User notes
 - she typed 'h' for hypotenuse
 
 
-note:
+notes:
 maybe don't show N/A and calculate the thing that's not given?
+
+regular expression for grabbing sides given ([side] and [side]) to know if we're using soh/cah/toa
+
+function for getting side lengths

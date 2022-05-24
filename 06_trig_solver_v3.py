@@ -137,6 +137,50 @@ def trig_answer():
                 continue
 
 
+def new_trig():
+    
+    # ask user a series of questions to figure out what calculation type
+    # to use and calculate answer
+    two_side = string_checker("Do you have 2 sides? ", yes_no, "Please enter yes or no.")
+
+    if two_side == "yes":
+        third_side = string_checker("Do you need to find the third side? ", yes_no, "Please enter yes or no.")
+
+        if third_side == "yes":
+            getting_hyp = string_checker("Are you given the hypotenuse? ", yes_no, "Please enter yes or no.")
+
+            if getting_hyp == "yes":
+                side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
+                side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
+                desired_side = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
+
+            else:
+                side_1 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
+                side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
+                desired_side = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
+
+        else:
+            trig = True
+
+            # which_side = string_checker("Do you have the hypotenuse, adjacent or oppsite? ", side_valid, "Please enter a valid option.")
+            
+            # if which_side == "hypotenuse":
+            #     side_1 = num_check("Length of hypotenuse: ", "Please enter a number above 0.")
+            #     side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
+            
+            # elif which_side == "adjacent":
+            #     side_1 = num_check("Length of hypotenuse: ", "Please enter a number above 0.")
+            #     side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
+            
+            # else:
+            #     side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
+            #     side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
+
+
+    else:
+        
+
+
 # main routine
 
 # string checking lists
@@ -155,6 +199,11 @@ side_valid = [
     ["hypotenuse", "hyp"],
     ["opposite", "opp"],
     ["adjacent", "adj"]
+]
+
+yes_no = [
+    ["yes", "y"]
+    ["no", "n"]
 ]
 
 get_answer = trig_answer()
