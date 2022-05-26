@@ -6,29 +6,23 @@ import pandas
 # functions
 
 # string checker, checks for valid input from mini lists
-def string_checker(question, valid_list, error):
-    
-    # loop taking in input and string checking process
-    valid = False
-    while not valid:
-        
-        # take input
-        response = input(question).lower()
+def string_checker(response, valid_list, error):
 
-        # compare response with items in list
-        for var_list in valid_list:
-            if response in var_list:
-                response = var_list[0]
-                var_valid = True
-                break
-            else:
-                var_valid = False
-        
-        # if response is found to be valid, return first item in valid list otherwise print error
-        if var_valid == True:
-            return response
+    # compare response with items in list
+    for var_list in valid_list:
+        if response in var_list:
+            response = var_list[0]
+            var_valid = True
+            break
         else:
-            print(error)
+            var_valid = False
+    
+    # if response is found to be valid, return first item in valid list otherwise print error
+    if var_valid == True:
+        return response
+    else:
+        print(error)
+        return "invalid"
 
 
 # number checker, checks for float above 0 and below high if given
@@ -303,3 +297,5 @@ while keep_going == "yes":
 results_frame = pandas.DataFrame(results_dict, columns = ['Calculation Type', 'Length 1', 'Length 2', 'Angle', 'Trig Type', 'Answer'])
 results_frame = results_frame.set_index('Calculation Type')
 print(results_frame)
+
+# note: remake your string checker, if they type "help" then print help (function parameter)

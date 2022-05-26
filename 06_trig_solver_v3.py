@@ -34,29 +34,23 @@ def num_check(question, error, high=None):
 
 
 # string checker, checks for valid input from mini lists
-def string_checker(question, valid_list, error):
-    
-    # loop taking in input and string checking process
-    valid = False
-    while not valid:
-        
-        # take input
-        response = input(question).lower()
+def string_checker(response, valid_list, error):
 
-        # compare response with items in list
-        for var_list in valid_list:
-            if response in var_list:
-                response = var_list[0]
-                valid = True
-                break
-            else:
-                valid = False
-        
-        # if response is found to be valid, return first item in valid list otherwise print error
-        if valid == True:
-            return response
+    # compare response with items in list
+    for var_list in valid_list:
+        if response in var_list:
+            response = var_list[0]
+            var_valid = True
+            break
         else:
-            print(error)
+            var_valid = False
+    
+    # if response is found to be valid, return first item in valid list otherwise print error
+    if var_valid == True:
+        return response
+    else:
+        print(error)
+        return "invalid"
 
 def trig_answer():
     # use questions to set up future questions
@@ -141,13 +135,25 @@ def new_trig():
     
     # ask user a series of questions to figure out what calculation type
     # to use and calculate answer
-    two_side = string_checker("Do you have 2 sides? ", yes_no, "Please enter yes or no.")
+    
+    side_check = "invalid"
+    while side_check == "invalid":
+        two_side = input("Do you have 2 sides? ")
+        side_check = string_checker(two_side, yes_no, "Please enter yes or no.")
 
     if two_side == "yes":
-        third_side = string_checker("Do you need to find the third side? ", yes_no, "Please enter yes or no.")
-
+        
+        pyth_check = "invalid"
+        while pyth_check == "invalid":
+            third_side = input("Do you need to find the third side? ")
+            pyth_check = string_checker(third_side, yes_no, "Please enter yes or no.")
+        
         if third_side == "yes":
-            getting_hyp = string_checker("Are you given the hypotenuse? ", yes_no, "Please enter yes or no.")
+
+            hyp_check = "invalid"
+            while hyp_check == "invalid":
+                getting_hyp = input("Are you given the hypotenuse? ")
+                hyp_check = string_checker(getting_hyp, yes_no, "Please enter yes or no.")
 
             if getting_hyp == "yes":
                 side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
@@ -162,25 +168,43 @@ def new_trig():
         else:
             trig = True
 
-            # which_side = string_checker("Do you have the hypotenuse, adjacent or oppsite? ", side_valid, "Please enter a valid option.")
-            
-            # if which_side == "hypotenuse":
-            #     side_1 = num_check("Length of hypotenuse: ", "Please enter a number above 0.")
-            #     side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
-            
-            # elif which_side == "adjacent":
-            #     side_1 = num_check("Length of hypotenuse: ", "Please enter a number above 0.")
-            #     side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
-            
-            # else:
-            #     side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
-            #     side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
-
-
     else:
-        
+        trig = True
 
 
+def trig_calc():
+    have_valid = "invalid"
+    while have_valid == "invalid":
+        count = 0
+        # ask user what they have, try and find
+        what_have = input("What do you have? (e.g. opposite and angle): ")
+        have_list = str.split(what_have)
+        for item in have_list:
+
+            if item == "opposite":
+                opp = True
+
+            elif item == "adjacent":
+                adj = True
+
+            elif item == "hypotenuse":
+                hyp = True
+
+            elif item == "angle":
+                ang = True
+
+            else:
+                continue
+
+            if ang == True or hyp == True or adj == True or opp == True:
+                count += 1
+
+            # once we have what we need to calculate exit loop
+            if count == 2:
+                break
+            
+        if not_valid:
+            print(error)
 # main routine
 
 # string checking lists
