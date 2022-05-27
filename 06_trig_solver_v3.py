@@ -119,7 +119,7 @@ def trig_answer():
                 
                 elif which_side == "opposite":
                     desired_result = side_1 / math.tan(math.radians(angle_size))
-                
+
                 else:
                     invalid_side = True
 
@@ -166,7 +166,15 @@ def new_trig():
                 desired_side = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
 
         else:
-            trig = True
+            what_have_1 = string_checker("Give me your first side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.")
+            have_check = True
+            while have_check == True:
+                what_have_2 = string_checker("Give me your second side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.")
+                if what_have_2 == what_have_1:
+                    print("Please enter a different side! (hypotenuse / opposite / adjacent)")
+                    continue
+                break
+            
 
     else:
         trig = True
@@ -203,8 +211,10 @@ def trig_calc():
             if count == 2:
                 break
             
-        if not_valid:
-            print(error)
+        if count != 2:
+            print("Please enter a valid option!")
+            continue
+
 # main routine
 
 # string checking lists
