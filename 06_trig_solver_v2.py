@@ -159,4 +159,4 @@ side_valid = [
 
 get_answer = trig_answer()
 
-print("Your answer is: {:.2f}".format(trig_answer))
+print("Your answer is: {:.2f}".format(get_answer))
