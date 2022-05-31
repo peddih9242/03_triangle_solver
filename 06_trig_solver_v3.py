@@ -153,21 +153,26 @@ def new_trig():
             getting_hyp = string_checker("Are you given the hypotenuse? ", yes_no, "Please enter yes or no.")
             
             if getting_hyp == "yes":
-                # use pythagoras to calculate missing side
+                # use pythagoras to calculate missing side                
+                side_1 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
+                
+                while True:
+                    side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
+                    if side_2 < side_1:
+                        break
+                    print("Please make sure the hypotenuse is the longest side!")
+                desired_result = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5                
+
+            else:
                 side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
                 side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
                 desired_result = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
-
-            else:
-                side_1 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
-                side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
-                desired_result = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
-
+        
         else:
             # get what is needed to calculate angle and calculate
             what_have_1 = string_checker("Give me your first side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.")
+
             have_check = True
-            
             while have_check == True:
                 what_have_2 = string_checker("Give me your second side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.")
                 have_list = [what_have_1, what_have_2]
@@ -177,9 +182,27 @@ def new_trig():
                     continue
             
                 else:
-                    side_1 = num_check("How long is your {}? ".format(what_have_1), "Please enter a number above 0.")
-                    side_2 = num_check("How long is your {}? ".format(what_have_2), "Please enter a number above 0.")
-            
+                    
+                    while True:
+                        side_1 = num_check("How long is your {}? ".format(what_have_1), "Please enter a number above 0.")
+                        side_2 = num_check("How long is your {}? ".format(what_have_2), "Please enter a number above 0.")
+                        
+                        # make sure if hyp given, hyp is longest side
+                        if what_have_1 == "hypotenuse":
+                            if side_1 > side_2:
+                                break
+                            print("Please make sure the hypotenuse is the longest side!")
+                        
+                        elif what_have_2 == "hypotenuse":
+                            if side_2 > side_1:
+                                break
+                            print("Please make sure the hypotenuse is the longest side!")
+                        
+                        else:
+                            break
+
+
+
                     if "hypotenuse" in have_list and "opposite" in have_list:
                         desired_result = math.asin(side_1 / side_2)
             
@@ -196,16 +219,20 @@ def new_trig():
             
 
     else:
+
+        what_side = string_checker("What side are you trying to get? ", side_valid, "Please enter a valid side!")
+        
+        # make sure they're not getting the side they have
         side_invalid = "invalid"
-        while side_invalid == "invalid":
-            what_side = string_checker("What side are you trying to get? ", side_valid, "Please enter a valid side!")
+        while side_invalid == "invalid":     
             what_have_1 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.")
             if what_have_1 != what_side:
                 break
+
             print("Please don't enter the same sides!")
 
         side_1 = num_check("How long is your side? ", "Please enter a number above 0.")
-        angle_size = num_check("What's the size of your angle", "Please enter a number above 0 and below 90.", 90)
+        angle_size = num_check("What's the size of your angle? ", "Please enter a number above 0 and below 90.", 90)
         
         if what_side == "hypotenuse":
         
@@ -290,10 +317,10 @@ side_valid = [
 ]
 
 yes_no = [
-    ["yes", "y"]
+    ["yes", "y"],
     ["no", "n"]
 ]
 
-get_answer = trig_answer()
+get_answer = new_trig()
 
 print("Your answer is: {:.2f}".format(get_answer))
