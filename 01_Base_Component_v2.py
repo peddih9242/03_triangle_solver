@@ -71,7 +71,7 @@ def trig_answer():
 
     if angle_length == "angle":
 
-        angle.append("N/A")
+        given_angles.append("N/A")
 
         # get what is needed to calculate the angle, calculate and then print to user
         if soh_cah_toa == "sin":
@@ -159,7 +159,7 @@ def trig_answer():
                 desired_result = unit_format(desired_result, length_unit)
                 
                 length_1.append(side_1)
-                angle.append(angle_size)
+                given_angles.append(angle_size)
                 answer.append(desired_result)
                 return desired_result
 
@@ -167,12 +167,161 @@ def trig_answer():
                 print("You need to enter a valid side!")
                 continue
 
+# gets answer for both trigonometry and pythagoras
+def triangle_solver():
+    
+    # ask user a series of questions to figure out what calculation type
+    # to use and calculate answer
+    
+    length_unit = string_checker("What units are your length(s) in? ", valid_units, "Please enter a valid unit!")
+    two_side = string_checker("Do you have 2 sides? ", yes_no, "Please enter yes or no.")
+
+    if two_side == "yes":
+        
+        third_side = string_checker("Do you need to find the third side? ", yes_no, "Please enter yes or no.")
+        
+        if third_side == "yes":
+
+            getting_hyp = string_checker("Are you given the hypotenuse? ", yes_no, "Please enter yes or no.")
+            
+            if getting_hyp == "yes":
+
+                # use pythagoras to calculate missing side                
+                side_1 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
+                
+                while True:
+                    side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
+                    if side_2 < side_1:
+                        break
+                    print("Please make sure the hypotenuse is the longest side!")
+                desired_result = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5                
+
+            else:
+                side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
+                side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
+                desired_result = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
+            
+            # append stats to list for printing
+            trig_pythag.append("Pythagoras")
+            length_1.append(unit_format(side_1, length_unit))
+            length_2.append(unit_format(side_2, length_unit))            
+            answer.append(unit_format, length_unit)
+
+        else:
+            
+            # get what is needed to calculate angle and calculate
+            what_have_1 = string_checker("Give me your first side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.")
+
+            have_check = True
+            while have_check == True:
+                what_have_2 = string_checker("Give me your second side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.")
+                have_list = [what_have_1, what_have_2]
+            
+                if what_have_2 == what_have_1:
+                    print("Please enter a different side! (hypotenuse / opposite / adjacent)")
+                    continue
+            
+                else:
+                    
+                    while True:
+                        side_1 = num_check("How long is your {}? ".format(what_have_1), "Please enter a number above 0.")
+                        side_2 = num_check("How long is your {}? ".format(what_have_2), "Please enter a number above 0.")
+
+                        # make sure if hyp given, hyp is longest side and calculate properly with hyp as longer side
+                        
+                        if what_have_1 == "hypotenuse":
+                            if side_1 > side_2:
+                                if "hypotenuse" in have_list and "opposite" in have_list:
+                                    desired_result = math.asin(side_2 / side_1)
+            
+                                elif "adjacent" in have_list and "hypotenuse" in have_list:
+                                    desired_result = math.acos(side_2 / side_1)
+                                break
+                            print("Please make sure the hypotenuse is the longest side!")
+                        
+                        elif what_have_2 == "hypotenuse":
+                            if side_2 > side_1:
+                                if "hypotenuse" in have_list and "opposite" in have_list:
+                                    desired_result = math.asin(side_1 / side_2)
+            
+                                elif "adjacent" in have_list and "hypotenuse" in have_list:
+                                    desired_result = math.acos(side_1 / side_2)
+                                break
+                            print("Please make sure the hypotenuse is the longest side!")
+                        
+                        else:
+                            break
+
+                    if "opposite" in have_list and "adjacent" in have_list:
+                        desired_result = math.atan(side_1 / side_2)
+                    
+                    # append stats to list for printing
+                    trig_pythag.append("Trigonometry")
+                    desired_result = math.degrees(desired_result)
+                    answer.append(unit_format(desired_result, "°"))
+                    length_1.append(unit_format(side_1, length_unit))
+                    length_2.append(unit_format(side_2, length_unit))
+                
+                break
+          
+
+    else:
+        
+        
+        
+        what_side = string_checker("What side are you trying to get? ", side_valid, "Please enter a valid side!")
+        
+        # make sure they're not getting the side they have
+        side_invalid = "invalid"
+        while side_invalid == "invalid":     
+            what_have_1 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.")
+            if what_have_1 != what_side:
+                break
+
+            print("Please don't enter the same sides!")
+
+        side_1 = num_check("How long is your side? ", "Please enter a number above 0.")
+        angle_size = num_check("What's the size of your angle? ", "Please enter a number above 0 and below 90.", 90)
+        
+        length_1.append(unit_format(side_1, length_unit))
+        length_2.append(unit_format(angle_size, "°"))
+
+        if what_side == "hypotenuse":
+        
+            if what_have_1 == "opposite":
+                desired_result = side_1 / math.sin(math.radians(angle_size))
+        
+            elif what_have_1 == "adjacent":
+                desired_result = side_1 / math.cos(math.radians(angle_size))
+
+        elif what_side == "opposite":
+
+            if what_have_1 == "hypotenuse":
+                desired_result = side_1 * math.sin(math.radians(angle_size))
+            
+            elif what_have_1 == "adjacent":
+                desired_result = side_1 * math.tan(math.radians(angle_size))
+        
+        elif what_side == "adjacent":
+
+            if what_have_1 == "hypotenuse":
+                desired_result = side_1 * math.cos(math.radians(angle_size))
+            
+            elif what_have_1 == "opposite":
+                desired_result = side_1 / math.tan(math.radians(angle_size))
+        
+        # append stats to lists for printing
+        trig_pythag.append("Trigonometry")
+        answer.append(unit_format(desired_result, length_unit))
+
+    return desired_result
+
 # blank checking function, checks if a string input is blank
 def not_blank(question, error):
     
     var_loop = True
     while var_loop:
-        
+    
     # take in response and check if it is blank
         response = input(question).lower()
         
@@ -184,7 +333,7 @@ def not_blank(question, error):
 # gets answer for pythagoras
 def pythagoras_ans():
 
-    angle.append("N/A")
+    given_angles.append("N/A")
     which_trig.append("N/A")
     # ask if the user is trying to find the hypotenuse or not and get unit
     get_hypotenuse = string_checker("Are you trying to find the hypotenuse? ", yes_no, "Please enter yes or no.")
@@ -217,6 +366,7 @@ def pythagoras_ans():
     answer.append(desired_side)
     return desired_side
 
+# returns given item with units
 def unit_format(format_num, unit):
     return "{} {}".format(format_num, unit)
 
@@ -267,7 +417,7 @@ trig_pyth_valid = [
 trig_pythag = []
 length_1 = []
 length_2 = []
-angle = []
+given_angles = []
 which_trig = []
 answer = []
 
@@ -276,21 +426,17 @@ results_dict = {
     "Calculation Type": trig_pythag,
     "Length 1": length_1,
     "Length 2": length_2,
-    "Angle": angle,
+    "Angle": given_angles,
     "Trig Type": which_trig,
     "Answer": answer
 }
 
 keep_going = "yes"
 while keep_going == "yes":
-    # ask if user wants to use pythagoras or trig
-    pythag_trig = string_checker("Do you need to use pythagoras or trigonometry? ", trig_pyth_valid, "Please enter a valid option.")
-    trig_pythag.append(pythag_trig.title())
 
-    if pythag_trig == "trigonometry":
-        calc_answer = trig_answer()
-    else:
-        calc_answer = pythagoras_ans()
+    # ask questions and get triangle answer
+    calc_answer = triangle_solver()
+
     print("Your answer is:", calc_answer)
     keep_going = string_checker("Do you want to do another calculation? ", yes_no, "Please enter yes or no.")
 
