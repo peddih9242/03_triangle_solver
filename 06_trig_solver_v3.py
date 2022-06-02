@@ -137,7 +137,7 @@ def trig_answer():
                 continue
 
 
-def new_trig():
+def triangle_solver():
     
     # ask user a series of questions to figure out what calculation type
     # to use and calculate answer
@@ -187,36 +187,38 @@ def new_trig():
                         side_1 = num_check("How long is your {}? ".format(what_have_1), "Please enter a number above 0.")
                         side_2 = num_check("How long is your {}? ".format(what_have_2), "Please enter a number above 0.")
                         
-                        # make sure if hyp given, hyp is longest side
+                        # make sure if hyp given, hyp is longest side and calculate properly with hyp as longer side
+                        
                         if what_have_1 == "hypotenuse":
                             if side_1 > side_2:
+                                if "hypotenuse" in have_list and "opposite" in have_list:
+                                    desired_result = math.asin(side_2 / side_1)
+            
+                                elif "adjacent" in have_list and "hypotenuse" in have_list:
+                                    desired_result = math.acos(side_2 / side_1)
                                 break
                             print("Please make sure the hypotenuse is the longest side!")
                         
                         elif what_have_2 == "hypotenuse":
                             if side_2 > side_1:
+                                if "hypotenuse" in have_list and "opposite" in have_list:
+                                    desired_result = math.asin(side_1 / side_2)
+            
+                                elif "adjacent" in have_list and "hypotenuse" in have_list:
+                                    desired_result = math.acos(side_1 / side_2)
                                 break
                             print("Please make sure the hypotenuse is the longest side!")
                         
                         else:
                             break
 
-
-
-                    if "hypotenuse" in have_list and "opposite" in have_list:
-                        desired_result = math.asin(side_1 / side_2)
-            
-                    elif "adjacent" in have_list and "hypotenuse" in have_list:
-                        desired_result = math.acos(side_1 / side_2)
-            
-                    elif "opposite" in have_list and "adjacent" in have_list:
+                    if "opposite" in have_list and "adjacent" in have_list:
                         desired_result = math.atan(side_1 / side_2)
-            
-                    else:
-                        print("Something happened. That wasn't supposed to happen.")
                     
+                    desired_result = math.degrees(desired_result)
+
                 break
-            
+          
 
     else:
 
@@ -321,6 +323,6 @@ yes_no = [
     ["no", "n"]
 ]
 
-get_answer = new_trig()
+get_answer = triangle_solver()
 
 print("Your answer is: {:.2f}".format(get_answer))
