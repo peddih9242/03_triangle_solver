@@ -204,7 +204,8 @@ def triangle_solver():
             # append stats to list for printing
             trig_pythag.append("Pythagoras")
             length_1.append(unit_format(side_1, length_unit))
-            length_2.append(unit_format(side_2, length_unit))            
+            length_2.append(unit_format(side_2, length_unit))
+            which_trig.append("None")            
             answer.append(unit_format, length_unit)
 
         else:
@@ -242,9 +243,11 @@ def triangle_solver():
                         elif what_have_2 == "hypotenuse":
                             if side_2 > side_1:
                                 if "hypotenuse" in have_list and "opposite" in have_list:
+                                    which_trig.append("sin")
                                     desired_result = math.asin(side_1 / side_2)
             
                                 elif "adjacent" in have_list and "hypotenuse" in have_list:
+                                    which_trig.append("cos")
                                     desired_result = math.acos(side_1 / side_2)
                                 break
                             print("Please make sure the hypotenuse is the longest side!")
@@ -253,6 +256,7 @@ def triangle_solver():
                             break
 
                     if "opposite" in have_list and "adjacent" in have_list:
+                        which_trig.append("tan")
                         desired_result = math.atan(side_1 / side_2)
                     
                     # append stats to list for printing
@@ -290,18 +294,22 @@ def triangle_solver():
         
             if what_have_1 == "opposite":
                 desired_result = side_1 / math.sin(math.radians(angle_size))
-        
+                which_trig.append("sin")
+
             elif what_have_1 == "adjacent":
                 desired_result = side_1 / math.cos(math.radians(angle_size))
+                which_trig.append("cos")
 
         elif what_side == "opposite":
 
             if what_have_1 == "hypotenuse":
                 desired_result = side_1 * math.sin(math.radians(angle_size))
-            
+                which_trig.append("sin")
+
             elif what_have_1 == "adjacent":
                 desired_result = side_1 * math.tan(math.radians(angle_size))
-        
+                which_trig.append("tan")
+                
         elif what_side == "adjacent":
 
             if what_have_1 == "hypotenuse":
