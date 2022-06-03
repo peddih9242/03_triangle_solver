@@ -6,23 +6,29 @@ import pandas
 # functions
 
 # string checker, checks for valid input from mini lists
-def string_checker(response, valid_list, error):
-
-    # compare response with items in list
-    for var_list in valid_list:
-        if response in var_list:
-            response = var_list[0]
-            var_valid = True
-            break
-        else:
-            var_valid = False
+def string_checker(question, valid_list, error):
     
-    # if response is found to be valid, return first item in valid list otherwise print error
-    if var_valid == True:
-        return response
-    else:
-        print(error)
-        return "invalid"
+    # loop taking in input and string checking process
+    valid = False
+    while not valid:
+        
+        # take input
+        response = input(question).lower()
+
+        # compare response with items in list
+        for var_list in valid_list:
+            if response in var_list:
+                response = var_list[0]
+                var_valid = True
+                break
+            else:
+                var_valid = False
+        
+        # if response is found to be valid, return first item in valid list otherwise print error
+        if var_valid == True:
+            return response
+        else:
+            print(error)
 
 
 # number checker, checks for float above 0 and below high if given
@@ -203,10 +209,14 @@ def triangle_solver():
             
             # append stats to list for printing
             trig_pythag.append("Pythagoras")
+            side_1 = trail_formatting(side_1)
+            side_2 = trail_formatting(side_2)
             length_1.append(unit_format(side_1, length_unit))
             length_2.append(unit_format(side_2, length_unit))
-            which_trig.append("None")            
-            answer.append(unit_format, length_unit)
+            which_trig.append("N/A")    
+            given_angles.append("N/A")     
+            desired_result = trail_formatting(desired_result)   
+            answer.append(unit_format(desired_result, length_unit))
 
         else:
             
@@ -234,9 +244,11 @@ def triangle_solver():
                             if side_1 > side_2:
                                 if "hypotenuse" in have_list and "opposite" in have_list:
                                     desired_result = math.asin(side_2 / side_1)
+                                    which_trig.append("sin")
             
                                 elif "adjacent" in have_list and "hypotenuse" in have_list:
                                     desired_result = math.acos(side_2 / side_1)
+                                    which_trig.append("cos")
                                 break
                             print("Please make sure the hypotenuse is the longest side!")
                         
@@ -262,7 +274,10 @@ def triangle_solver():
                     # append stats to list for printing
                     trig_pythag.append("Trigonometry")
                     desired_result = math.degrees(desired_result)
-                    answer.append(unit_format(desired_result, "°"))
+                    desired_result = trail_formatting(desired_result)
+                    desired_result = unit_format(desired_result, "°")
+                    given_angles.append(desired_result)
+                    answer.append(desired_result)
                     length_1.append(unit_format(side_1, length_unit))
                     length_2.append(unit_format(side_2, length_unit))
                 
@@ -287,8 +302,7 @@ def triangle_solver():
         side_1 = num_check("How long is your side? ", "Please enter a number above 0.")
         angle_size = num_check("What's the size of your angle? ", "Please enter a number above 0 and below 90.", 90)
         
-        length_1.append(unit_format(side_1, length_unit))
-        length_2.append(unit_format(angle_size, "°"))
+        
 
         if what_side == "hypotenuse":
         
@@ -314,13 +328,22 @@ def triangle_solver():
 
             if what_have_1 == "hypotenuse":
                 desired_result = side_1 * math.cos(math.radians(angle_size))
-            
+                which_trig.append("cos")
+
             elif what_have_1 == "opposite":
                 desired_result = side_1 / math.tan(math.radians(angle_size))
-        
+                which_trig.append("tan")
+
         # append stats to lists for printing
         trig_pythag.append("Trigonometry")
-        answer.append(unit_format(desired_result, length_unit))
+        side_1 = trail_formatting(side_1)
+        angle_size = trail_formatting(angle_size)
+        length_1.append(unit_format(side_1, length_unit))
+        given_angles.append(unit_format(angle_size, "°"))
+        desired_result = trail_formatting(desired_result)
+        desired_result = unit_format(desired_result, length_unit)
+        length_2.append(desired_result)        
+        answer.append(desired_result)
 
     return desired_result
 
@@ -412,7 +435,7 @@ valid_units = [
     ["m", "metres", "metre", "meters", "meter"],
     ["mi", "miles", "mile"],
     ["in", "inches", "inch"],
-    ["megametre", "megameter", "megametres", "megameters"],
+    ["megametres", "megameter", "megametre", "megameters"],
     ["yds", "yards", "yd", "yard"],
     ["ft", "foot", "feet"]
 ]
@@ -441,13 +464,17 @@ results_dict = {
 
 keep_going = "yes"
 while keep_going == "yes":
-
+    
+    print()
     # ask questions and get triangle answer
     calc_answer = triangle_solver()
 
+    print()
     print("Your answer is:", calc_answer)
     keep_going = string_checker("Do you want to do another calculation? ", yes_no, "Please enter yes or no.")
 
+print()
+print()
 results_frame = pandas.DataFrame(results_dict, columns = ['Calculation Type', 'Length 1', 'Length 2', 'Angle', 'Trig Type', 'Answer'])
 results_frame = results_frame.set_index('Calculation Type')
 print(results_frame)
