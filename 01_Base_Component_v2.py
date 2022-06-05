@@ -34,6 +34,7 @@ def string_checker(question, valid_list, error, help_response):
                 return response
             else:
                 print(error)
+                print()
 
 
 # number checker, checks for float above 0 and below high if given
@@ -65,6 +66,7 @@ def num_check(question, error, high=None):
         # if input is not a number print an error
         except ValueError:
             print(error)
+            print()
 
 
 # formats trailing 0s off floats
@@ -322,7 +324,7 @@ valid_units = [
     ["megametres", "megameter", "megametre", "megameters"],
     ["yds", "yards", "yd", "yard"],
     ["ft", "foot", "feet"],
-    ["", "no unit", "none"]
+    ["", "no unit", "none", "n"]
 ]
 
 trig_pyth_valid = [
