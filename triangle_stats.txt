@@ -1,1 +1,6 @@
-eee
+**** Triangle Solver Stats ****
+
+                  Length 1  Length 2 Angle Trig Type  Answer
+Calculation Type                                            
+Pythagoras               4      3.00   N/A       N/A    5.00
+Trigonometry             5     20.05    76       tan   20.05
