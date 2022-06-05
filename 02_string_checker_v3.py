@@ -1,21 +1,32 @@
 # string checker, checks for valid input from mini lists
-def string_checker(response, valid_list, error):
-
-    # compare response with items in list
-    for var_list in valid_list:
-        if response in var_list:
-            response = var_list[0]
-            var_valid = True
-            break
-        else:
-            var_valid = False
+def string_checker(question, valid_list, error, help_response):
     
-    # if response is found to be valid, return first item in valid list otherwise print error
-    if var_valid == True:
-        return response
-    else:
-        print(error)
-        return "invalid"
+    # loop taking in input and string checking process
+    valid = False
+    while not valid:
+        
+        # take input
+        response = input(question).lower()
+        
+        # if the user asks for help then give help based on question
+        if response == "help":
+            print(help_response)
+
+        else:
+            # compare response with items in list
+            for var_list in valid_list:
+                if response in var_list:
+                    response = var_list[0]
+                    var_valid = True
+                    break
+                else:
+                    var_valid = False
+        
+            # if response is found to be valid, return first item in valid list otherwise print error
+            if var_valid == True:
+                return response
+            else:
+                print(error)
 
 # blank checking function, checks if a string input is blank
 def not_blank(question, error):
@@ -39,9 +50,8 @@ yes_no = [
     ]
     
 for item in range(5):
-    loop = "invalid"
-    while loop == "invalid":
-        ask_question = input("Yes or no? ")
-        test_function = string_checker(ask_question, yes_no, "Please enter yes or no")
+
+    help_text = "In this question you are given two options, yes and no. You must pick either one to proceed through this program!"
+    test_function = string_checker("Yes or no? ", yes_no, "Please enter yes or no", help_text)
     print("You said {}".format(test_function))
     print()

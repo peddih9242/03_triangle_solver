@@ -479,4 +479,17 @@ results_frame = pandas.DataFrame(results_dict, columns = ['Calculation Type', 'L
 results_frame = results_frame.set_index('Calculation Type')
 print(results_frame)
 
+# change dataframe to text for writing to file
+results_txt = pandas.DataFrame.to_string(results_frame)
+
+# set up write to file
+file_name = "triangle_stats.txt"
+text_file = open(file_name, "w+")
+
+# heading
+text_file.write("**** Triangle Solver Stats ****")
+text_file.write("\n\n")
+text_file.write(results_txt)
+text_file.close()
+
 # note: remake your string checker, if they type "help" then print help (function parameter)
