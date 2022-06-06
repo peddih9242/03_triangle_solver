@@ -102,15 +102,16 @@ def triangle_solver():
                 side_1 = num_check("Length of the hypotenuse: ", "Please enter a number above 0.")
                 
                 while True:
-                    side_2 = num_check("Length of side 2: ", "Please enter a number above 0 and below {}.".format(side_1))
+                    side_2 = num_check("Length of your other side: ", "Please enter a number above 0 and below {}.".format(side_1))
                     if side_2 < side_1:
                         break
                     print("Please make sure the hypotenuse is the longest side!")
+                    print()
                 desired_result = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5                
 
             else:
-                side_1 = num_check("Length of side 1: ", "Please enter a number above 0.")
-                side_2 = num_check("Length of side 2: ", "Please enter a number above 0.")
+                side_1 = num_check("Length of one side: ", "Please enter a number above 0.")
+                side_2 = num_check("Length of the other side: ", "Please enter a number above 0.")
                 desired_result = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
             
             # append stats to list for printing
@@ -121,22 +122,24 @@ def triangle_solver():
             length_2.append(unit_format(side_2, length_unit))
             which_trig.append("N/A")    
             given_angles.append("N/A")     
-            desired_result = trail_formatting(desired_result)   
-            answer.append(unit_format(desired_result, length_unit))
+            desired_result = trail_formatting(desired_result)
+            desired_result = unit_format(desired_result, length_unit)
+            answer.append(desired_result)
 
         else:
             
             # get what is needed to calculate angle and calculate
-            what_have_help = "What sides do you have (hypotenuse / opposite / adjacent)"
-            what_have_1 = string_checker("Give me your first side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.", what_have_help)
+            what_have_help = "\nWe need to know if your side is the hypotenuse / opposite / adjacent. \n- If your side is the longest side, it's the hypotenuse. \n- If your angle is right next to the side you have, it's the adjacent. \n- If your side is on the other side of the angle, it's the opposite.\n"
+            what_have_1 = string_checker("Give me one of the sides you have: ", side_valid, "Please enter a valid option (hypotenuse / opposite / adjacent)", what_have_help)
 
             have_check = True
             while have_check == True:
-                what_have_2 = string_checker("Give me your second side: ", side_valid, "Please enter hypotenuse / opposite / adjacent.", what_have_help)
+                what_have_2 = string_checker("Give me the other side you have: ", side_valid, "Please enter hypotenuse / opposite / adjacent.", what_have_help)
                 have_list = [what_have_1, what_have_2]
             
                 if what_have_2 == what_have_1:
                     print("Please enter a different side! (hypotenuse / opposite / adjacent)")
+                    print()
                     continue
             
                 else:
@@ -170,6 +173,7 @@ def triangle_solver():
                                     desired_result = math.acos(side_1 / side_2)
                                 break
                             print("Please make sure the hypotenuse is the longest side!")
+                            print()
                         
                         else:
                             break
@@ -194,20 +198,21 @@ def triangle_solver():
     else:
         
         
-        what_side_help = "What side are you trying to get (hypotenuse / opposite / adjacent)"
-        what_side = string_checker("What side are you trying to get? ", side_valid, "Please enter a valid side!", what_side_help)
+        what_side_help = "\nWe need to know if the side is hypotenuse / opposite / adjacent. \n- If the side is the longest side, it's the hypotenuse. \n- If your angle is right next to the side you have, it's the adjacent. \n- If the side is on the other side of your angle, it's the opposite.\n"
+        what_side = string_checker("What side are you trying to get? ", side_valid, "Please enter a valid option (hypotenuse / opposite / adjacent)", what_side_help)
         
         # make sure they're not getting the side they have
         side_invalid = "invalid"
         while side_invalid == "invalid":     
-            what_have_help = "What sides do you have (hypotenuse / opposite / adjacent)"
-            what_have_1 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.", what_have_help)
+
+            what_have_1 = string_checker("What side do you have? ", side_valid, "Please enter a valid option (hypotenuse opposite / adjacent).", what_side_help)
             if what_have_1 != what_side:
                 break
 
             print("Please don't enter the same sides!")
+            print()
 
-        side_1 = num_check("How long is your side? ", "Please enter a number above 0.")
+        side_1 = num_check("How long is the side you have? ", "Please enter a number above 0.")
         angle_size = num_check("What's the size of your angle? ", "Please enter a number above 0 and below 90.", 90)
         
         
@@ -363,7 +368,8 @@ while keep_going == "yes":
     keep_going_help = "If you want to keep going, enter yes, otherwise enter no to exit."
     keep_going = string_checker("Do you want to do another calculation? ", yes_no, "Please enter yes or no.", keep_going_help)
 
-print()
+print("\n\n")
+print("**** Triangle Solver Stats ****")
 print()
 results_frame = pandas.DataFrame(results_dict, columns = ['Calculation Type', 'Length 1', 'Length 2', 'Angle', 'Function', 'Answer'])
 results_frame = results_frame.set_index('Calculation Type')
@@ -381,5 +387,3 @@ text_file.write("**** Triangle Solver Stats ****")
 text_file.write("\n\n")
 text_file.write(results_txt)
 text_file.close()
-
-# note: remake your string checker, if they type "help" then print help (function parameter)

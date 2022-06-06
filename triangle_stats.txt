@@ -1,5 +1,7 @@
 **** Triangle Solver Stats ****
 
-                 Length 1 Length 2 Angle Function   Answer
-Calculation Type                                          
-Pythagoras           6 cm     5 cm   N/A      N/A  3.32 cm
+                 Length 1 Length 2    Angle Function   Answer
+Calculation Type                                             
+Pythagoras          10 cm     5 cm      N/A      N/A  8.66 cm
+Trigonometry          5 m   5.36 m     47 °      tan   5.36 m
+Trigonometry       4.0 km   6.0 km  48.19 °      cos  48.19 °
