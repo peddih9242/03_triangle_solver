@@ -180,7 +180,10 @@ def triangle_solver():
 
                     if "opposite" in have_list and "adjacent" in have_list:
                         which_trig.append("tan")
-                        desired_result = math.atan(side_1 / side_2)
+                        if what_have_1 == "opposite":
+                            desired_result = math.atan(side_1 / side_2)
+                        elif what_have_2 == "opposite":
+                            desired_result = math.atan(side_2 / side_1)
                     
                     # append stats to list for printing
                     trig_pythag.append("Trigonometry")
