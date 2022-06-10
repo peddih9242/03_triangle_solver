@@ -118,8 +118,6 @@ def triangle_solver():
             calc_type = "Pythagoras"
             trig_function = "N/A"
             angle_size = "N/A"   
-            given_side_2 = True
-            given_angle = False
 
         else:
             
@@ -183,11 +181,8 @@ def triangle_solver():
                     
                     # append stats to list for printing
                     calc_type = "Trigonometry"
-                    triangle_unit = "°"
                     desired_result = math.degrees(desired_result)
                     angle_size = desired_result
-                    given_side_2 = True
-                    given_angle = True
                 
                 break
           
@@ -246,17 +241,14 @@ def triangle_solver():
     
         # append stats to lists for printing
         calc_type = "Trigonometry"
-        angle_size = trail_formatting(angle_size)
-        angle_size = unit_format(angle_size, "°")
         side_2 = desired_result
-        given_side_2 = False
-        given_angle = True
 
     side_1 = unit_format(trail_formatting(side_1), triangle_unit)
-    if given_side_2:
-        side_2 = unit_format(trail_formatting(side_2), triangle_unit)
+    side_2 = unit_format(trail_formatting(side_2), triangle_unit)
+
     desired_result = unit_format(trail_formatting(desired_result), triangle_unit)
-    if given_angle:
+    
+    if angle_size != "N/A":
         angle_size = unit_format(trail_formatting(angle_size), "°")
 
     trig_pythag.append(calc_type)
@@ -336,7 +328,7 @@ valid_units = [
     ["megametres", "megameter", "megametre", "megameters"],
     ["yds", "yards", "yd", "yard"],
     ["ft", "foot", "feet"],
-    ["", "no unit", "none", "n"]
+    ["", "no unit", "none", "n", "unit", "units"]
 ]
 
 trig_pyth_valid = [

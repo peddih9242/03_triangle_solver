@@ -1,6 +1,5 @@
 **** Triangle Solver Stats ****
 
-                 Angle  Answer  Length 1  Length 2 Trig Type
-Calculation Type                                            
-Pythagoras         N/A    5.00         4      3.00       N/A
-Trigonometry        76   20.05         5     20.05       tan
+                 Length 1 Length 2    Angle Function    Answer
+Calculation Type                                              
+Trigonometry         5 mm     4 mm  36.87 °      cos  36.87 mm
