@@ -299,18 +299,79 @@ def trig_calc():
             continue
 
 def mega_epic_cool_triangle_solver():
-    # ask user for two sides or side and an angle
+
+    # ask user questions to find if user has two sides or a side and an angle
     while True:
         
         what_side_1 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.")
         if what_side_1 != "":
             break
+        print("Please don't enter blank!")
     
+    # WARNING: make sure what_side_2 is not the same side as what_side_1
     what_side_2 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.")
-    if what_side_2 == "":
-        angle_size = num_check("How large is your angle? ", "Please enter a number above 0 and below 90.", 90)
+
+    side_1 = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
     
-    # calculate the whole triangle
+    # differentiate between 2 sides and side + angle then calculate the whole triangle
+    if what_side_2 == "":
+        
+        # start of path where user has side and angle
+        angle_size = num_check("How large is your angle? ", "Please enter a number above 0 and below 90.", 90)
+        
+        # calculate other angle using geometric reasoning - all angles in triangle add to 180
+        calc_angle = 90 - angle_size
+        
+        # use trigonometry to calculate the hypotenuse 
+        if what_side_1 == "hypotenuse":
+            side_2 = side_1 * math.sin(math.radians(angle_size))
+        
+        elif what_side_2 == "opposite":
+            side_2 = side_1 / math.sin(math.radians(angle_size))
+        
+        elif what_side_2 == "adjacent":
+            side_2 = side_1 / math.cos(math.radians(angle_size))
+        
+        # use pythagoras to calculate the final side, making sure calculation is being done in the right order
+        if what_side_1 == "hypotenuse":
+            side_3 = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
+        else:
+            side_3 = ((side_2 ** 2) - (side_1 ** 2))
+
+    else:
+
+        # start of user having 2 sides
+        # WARNING: make sure side_2 is not longer than side_1 if side_1 is the hypotenuse
+        side_2 = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+        
+        # use pythagoras to calculate the third side
+        if side_1 == "hypotenuse":
+            side_3 = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
+        elif side_2 == "hypotenuse":
+            side_3 = ((side_2 ** 2) - (side_1 ** 2)) ** 0.5
+        else:
+            side_3 = ((side_1 ** 2) + (side_2 ** 2)) * 0.5
+
+        # use trigonometry to calculate one angle
+        if what_side_1 == "hypotenuse":
+        
+            if what_side_2 == "opposite":
+                angle_1 = math.asin(side_2 / side_1)
+        
+            elif what_side_2 == "adjacent":
+                angle_1 = math.acos(side_2 / side_1)
+        
+        elif what_side_2 == "hypotenuse":
+            
+            if what_side_1 == "opposite":
+                angle_1 = math.asin(side_1 / side_2)
+        
+            elif what_side_1 == "adjacent":
+                angle_1 = math.acos(side_1 / side_2)
+        
+        
+
+    
     
 
 
