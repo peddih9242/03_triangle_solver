@@ -291,6 +291,103 @@ def instructions():
     print()
     return ""
 
+def mega_epic_cool_triangle_solver():
+
+    # ask user questions to find if user has two sides or a side and an angle
+    # making sure that first side is not blank and both sides are not the same
+    while True:
+        
+        what_side_1 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.")
+        
+        if what_side_1 == "":
+            print("Please don't enter blank!")
+            continue
+    
+        what_side_2 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.")
+        
+        if what_side_1 != what_side_2:
+            break
+        print("Please don't enter the same sides!")
+
+    side_1 = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
+    
+    # differentiate between 2 sides and side + angle then calculate the whole triangle
+    if what_side_2 == "":
+        
+        # start of path where user has side and angle
+        angle_1 = num_check("How large is your angle? ", "Please enter a number above 0 and below 90.", 90)
+        
+        # calculate other angle using geometric reasoning - all angles in triangle add to 180
+        angle_2 = 90 - angle_1
+        
+        # use trigonometry to calculate the hypotenuse then use pythagoras to calculate the last side
+        if what_side_1 == "hypotenuse":
+            side_2 = side_1 * math.sin(math.radians(angle_1))
+            side_3 = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
+        else:
+            if what_side_1 == "opposite":
+                side_2 = side_1 / math.sin(math.radians(angle_1))
+            
+            elif what_side_1 == "adjacent":
+                side_2 = side_1 / math.cos(math.radians(angle_1))
+            side_3 = ((side_2 ** 2) - (side_1 ** 2)) ** 0.5
+
+    else:
+
+        # start of user having 2 sides
+        # make sure that hypotenuse is the longest side if hypotenuse has been given by user
+        while True:
+            side_2 = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+            if what_side_1 == "hypotenuse" and side_2 >= side_1 or what_side_2 == "hypotenuse" and side_1 >= side_2:
+                print("Please make sure your hypotenuse is the longest side!")
+            
+            else:
+                break 
+
+        # use pythagoras to calculate the third side
+        if what_side_1 == "hypotenuse":
+            side_3 = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
+        elif what_side_2 == "hypotenuse":
+            side_3 = ((side_2 ** 2) - (side_1 ** 2)) ** 0.5
+        else:
+            side_3 = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
+
+        # use SOH CAH TOA to calculate one angle
+        if what_side_1 == "hypotenuse":
+        
+            if what_side_2 == "opposite":
+                angle_1 = math.asin(side_2 / side_1)
+        
+            elif what_side_2 == "adjacent":
+                angle_1 = math.acos(side_2 / side_1)
+        
+        elif what_side_2 == "hypotenuse":
+            
+            if what_side_1 == "opposite":
+                angle_1 = math.asin(side_1 / side_2)
+        
+            elif what_side_1 == "adjacent":
+                angle_1 = math.acos(side_1 / side_2)
+        
+        else:
+
+            if what_side_1 == "opposite":
+                angle_1 = math.asin(side_1 / side_3)
+            
+            elif what_side_1 == "adjacent":
+                angle_1 = math.acos(side_1 / side_3)
+        
+        # convert angle from radians to degrees and calculate last angle
+        angle_1 = math.degrees(angle_1)
+        angle_2 = 90 - angle_1
+    
+    print("Side 1:", trail_formatting(side_1))
+    print("Side 2:", trail_formatting(side_2))
+    print("Side 3:", trail_formatting(side_3))
+    print("Angle 1:", trail_formatting(angle_1))
+    print("Angle 2:", trail_formatting(angle_2))
+
+    return ""
 
 # main routine
 
