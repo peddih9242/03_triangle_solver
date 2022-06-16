@@ -110,6 +110,7 @@ def instructions():
 # calculates whole triangle when given two sides or a side and an angle
 def mega_epic_cool_triangle_solver():
 
+    # get units for triangle lengths
     unit_help = "You should input the units that your lengths have (e.g. centimetres/cm), if you don't have units press <enter> to skip to the next question."
     triangle_unit = string_checker("What units are your length(s) in? ", valid_units, "Please enter a valid unit!", unit_help)
 
@@ -140,7 +141,7 @@ def mega_epic_cool_triangle_solver():
         # calculate other angle using geometric reasoning - all angles in triangle add to 180
         angle_2 = 90 - angle_1
         
-        # use trigonometry to calculate the hypotenuse then use pythagoras to calculate the last side
+        # use trigonometry to calculate the hypotenuse or another side if already given then use pythagoras to calculate the last side
         if what_side_1 == "hypotenuse":
             side_2 = side_1 * math.sin(math.radians(angle_1))
             side_3 = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
@@ -201,11 +202,13 @@ def mega_epic_cool_triangle_solver():
         angle_1 = math.degrees(angle_1)
         angle_2 = 90 - angle_1
     
-    side_1 = unit_format(trail_formatting(side_1))
-    side_2 = unit_format(trail_formatting(side_2))
-    side_3 = unit_format(trail_formatting(side_3))
-    angle_1 = unit_format(trail_formatting(angle_1))
-    angle_2 = unit_format(trail_formatting(angle_2))
+
+    # formatting sides and angles then append to lists and printing
+    side_1 = unit_format(trail_formatting(side_1), triangle_unit)
+    side_2 = unit_format(trail_formatting(side_2), triangle_unit)
+    side_3 = unit_format(trail_formatting(side_3), triangle_unit)
+    angle_1 = unit_format(trail_formatting(angle_1), "°")
+    angle_2 = unit_format(trail_formatting(angle_2), "°")
 
     lengths_1.append(side_1)
     lengths_2.append(side_2)
@@ -295,8 +298,7 @@ while keep_going == "yes":
 print("\n\n")
 print("**** Triangle Solver Stats ****")
 print()
-results_frame = pandas.DataFrame(results_dict, columns = ['Calculation Type', 'Length 1', 'Length 2', 'Angle', 'Function', 'Answer'])
-results_frame = results_frame.set_index('Calculation Type')
+results_frame = pandas.DataFrame(results_dict, columns = ['Length 1', 'Length 2', 'Length 3', 'Angle 1', 'Angle 2'])
 print(results_frame)
 
 # change dataframe to text for writing to file
