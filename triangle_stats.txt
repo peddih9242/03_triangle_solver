@@ -1,4 +1,6 @@
 **** Triangle Solver Stats ****
 
-  Length 1 Length 2 Length 3  Angle 1  Angle 2
-0     5 cm     4 cm     3 cm  36.87 °  53.13 °
+            Length 1 Length 2 Length 3  Angle 1  Angle 2
+Calculation                                             
+1               4 cm     5 cm   6.4 cm  51.34 °  38.66 °
+2               5 mm     4 mm     3 mm  36.87 °  53.13 °

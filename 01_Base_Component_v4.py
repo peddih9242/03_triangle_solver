@@ -268,6 +268,7 @@ trig_pyth_valid = [
     ["pythagoras", "pythagoras theorem", "pythag", "p"]
 ]
 
+calc_count = []
 lengths_1 = []
 lengths_2 = []
 lengths_3 = []
@@ -276,6 +277,7 @@ second_angles = []
 
 # set up dictionary for results
 results_dict = {
+    "Calculation": calc_count,
     "Length 1": lengths_1,
     "Length 2": lengths_2,
     "Length 3": lengths_3,
@@ -285,10 +287,13 @@ results_dict = {
 
 instructions()
 
+round_count = 0
 keep_going = "yes"
 while keep_going == "yes":
     
     print()
+    round_count += 1
+    calc_count.append(round_count)
     # ask questions and get triangle answer
     mega_epic_cool_triangle_solver()
     
@@ -298,7 +303,8 @@ while keep_going == "yes":
 print("\n\n")
 print("**** Triangle Solver Stats ****")
 print()
-results_frame = pandas.DataFrame(results_dict, columns = ['Length 1', 'Length 2', 'Length 3', 'Angle 1', 'Angle 2'])
+results_frame = pandas.DataFrame(results_dict, columns = ['Calculation', 'Length 1', 'Length 2', 'Length 3', 'Angle 1', 'Angle 2'])
+results_frame = results_frame.set_index('Calculation')
 print(results_frame)
 
 # change dataframe to text for writing to file
