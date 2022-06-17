@@ -129,8 +129,15 @@ def mega_epic_cool_triangle_solver():
             break
         print("Please don't enter the same sides!")
 
-    side_1 = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
+    if what_side_1 == "hypotenuse":
+        hypotenuse = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
     
+    elif what_side_1 == "adjacent":
+        adjacent = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
+    
+    else:
+        opposite = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
+
     # differentiate between 2 sides and side + angle then calculate the whole triangle
     if what_side_2 == "":
         
@@ -142,22 +149,31 @@ def mega_epic_cool_triangle_solver():
         
         # use trigonometry to calculate the hypotenuse or another side if already given then use pythagoras to calculate the last side
         if what_side_1 == "hypotenuse":
-            side_2 = side_1 * math.sin(math.radians(angle_1))
-            side_3 = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
-        else:
-            if what_side_1 == "opposite":
-                side_2 = side_1 / math.sin(math.radians(angle_1))
-            
-            elif what_side_1 == "adjacent":
-                side_2 = side_1 / math.cos(math.radians(angle_1))
-            side_3 = ((side_2 ** 2) - (side_1 ** 2)) ** 0.5
+            opposite = hypotenuse * math.sin(math.radians(angle_1))
+            adjacent = ((hypotenuse ** 2) - (opposite ** 2)) ** 0.5
+        
+        elif what_side_1 == "opposite":
+            hypotenuse = opposite / math.sin(math.radians(angle_1))
+            adjacent = ((hypotenuse ** 2) - (opposite ** 2)) ** 0.5
+
+        elif what_side_1 == "adjacent":
+                hypotenuse = adjacent / math.cos(math.radians(angle_1))
+                opposite = ((hypotenuse ** 2) - (adjacent ** 2)) ** 0.5
 
     else:
 
         # start of user having 2 sides
         # make sure that hypotenuse is the longest side if hypotenuse has been given by user
         while True:
-            side_2 = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+            if what_side_2 == "hypotenuse":
+                hypotenuse = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+            
+            elif what_side_2 == "opposite":
+                opposite = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+            
+            elif what_side_2 == "adjacent":
+                adjacent = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+
             if what_side_1 == "hypotenuse" and side_2 >= side_1 or what_side_2 == "hypotenuse" and side_1 >= side_2:
                 print("Please make sure your hypotenuse is the longest side!")
             
@@ -165,12 +181,12 @@ def mega_epic_cool_triangle_solver():
                 break 
 
         # use pythagoras to calculate the third side
-        if what_side_1 == "hypotenuse":
-            side_3 = ((side_1 ** 2) - (side_2 ** 2)) ** 0.5
-        elif what_side_2 == "hypotenuse":
-            side_3 = ((side_2 ** 2) - (side_1 ** 2)) ** 0.5
+        if what_side_1 == "hypotenuse" and what_side_2 == "opposite" or what_side_1 == "opposite" and what_side_2 == "hypotenuse":
+            adjacent = ((hypotenuse ** 2) - (opposite ** 2)) ** 0.5
+        elif what_side_2 == "hypotenuse" and what_side_2 == "adjacent" or what_side_1 == "adjacent" and what_side_2 == "hypotenuse":
+            opposite = ((hypotenuse ** 2) - (adjacent ** 2)) ** 0.5
         else:
-            side_3 = ((side_1 ** 2) + (side_2 ** 2)) ** 0.5
+            hypotenuse = ((opposite ** 2) + (adjacent ** 2)) ** 0.5
 
         # use SOH CAH TOA to calculate one angle
         if what_side_1 == "hypotenuse":
@@ -203,9 +219,9 @@ def mega_epic_cool_triangle_solver():
     
 
     # formatting sides and angles then append to lists and printing
-    side_1 = unit_format(trail_formatting(side_1), triangle_unit)
-    side_2 = unit_format(trail_formatting(side_2), triangle_unit)
-    side_3 = unit_format(trail_formatting(side_3), triangle_unit)
+    hypotenuse = unit_format(trail_formatting(hypotenuse), triangle_unit)
+    adjacent = unit_format(trail_formatting(adjacent), triangle_unit)
+    opposite = unit_format(trail_formatting(opposite), triangle_unit)
     angle_1 = unit_format(trail_formatting(angle_1), "°")
     angle_2 = unit_format(trail_formatting(angle_2), "°")
 
