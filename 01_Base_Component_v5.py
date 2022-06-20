@@ -101,13 +101,14 @@ def instructions():
         print()
         print("**** Welcome to the Triangle Solver! ****")
         print("- In this program, you will be asked questions about your triangle.")
-        print("- Answer those questions and this program will calculate the part of your triangle that you're looking for!")
+        print("- Answer those questions and this program will calculate each of the triangle's sides and angles!")
         print("- It is important to note that if you don't understand a word question, you can type 'help' which will explain the question in a way that you can *hopefully* understand.")
         print("- You can do as many calculations as you want, and when you stop the stats for each calculation will be written to a .txt file under the name 'triangle_stats.txt'.")
+        print("\nNOTE: If you do not have two sides then the second time you're asked for your side, press <enter> to skip the question.")
     return ""
 
 # calculates whole triangle when given two sides or a side and an angle
-def mega_epic_cool_triangle_solver():
+def triangle_solver():
 
     # get units for triangle lengths
     unit_help = "You should input the units that your lengths have (e.g. centimetres/cm), if you don't have units press <enter> to skip to the next question."
@@ -135,7 +136,7 @@ def mega_epic_cool_triangle_solver():
     elif what_side_1 == "adjacent":
         adjacent = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
     
-    else:
+    elif what_side_1 == "opposite":
         opposite = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
 
     # differentiate between 2 sides and side + angle then calculate the whole triangle
@@ -157,8 +158,8 @@ def mega_epic_cool_triangle_solver():
             adjacent = ((hypotenuse ** 2) - (opposite ** 2)) ** 0.5
 
         elif what_side_1 == "adjacent":
-                hypotenuse = adjacent / math.cos(math.radians(angle_1))
-                opposite = ((hypotenuse ** 2) - (adjacent ** 2)) ** 0.5
+            hypotenuse = adjacent / math.cos(math.radians(angle_1))
+            opposite = ((hypotenuse ** 2) - (adjacent ** 2)) ** 0.5
 
     else:
 
@@ -174,44 +175,27 @@ def mega_epic_cool_triangle_solver():
             elif what_side_2 == "adjacent":
                 adjacent = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
 
-            if what_side_1 == "hypotenuse" and side_2 >= side_1 or what_side_2 == "hypotenuse" and side_1 >= side_2:
-                print("Please make sure your hypotenuse is the longest side!")
+            if what_side_1 == "opposite" or what_side_2 == "opposite":
+                if opposite < hypotenuse:
+                    break
             
-            else:
-                break 
+            elif what_side_1 == "adjacent" or what_side_2 == "adjacent":
+                if adjacent < hypotenuse:
+                    break
+
+            print("Please make sure your hypotenuse is the longest side!")
 
         # use pythagoras to calculate the third side
         if what_side_1 == "hypotenuse" and what_side_2 == "opposite" or what_side_1 == "opposite" and what_side_2 == "hypotenuse":
             adjacent = ((hypotenuse ** 2) - (opposite ** 2)) ** 0.5
-        elif what_side_2 == "hypotenuse" and what_side_2 == "adjacent" or what_side_1 == "adjacent" and what_side_2 == "hypotenuse":
+        elif what_side_1 == "hypotenuse" and what_side_2 == "adjacent" or what_side_1 == "adjacent" and what_side_2 == "hypotenuse":
             opposite = ((hypotenuse ** 2) - (adjacent ** 2)) ** 0.5
         else:
             hypotenuse = ((opposite ** 2) + (adjacent ** 2)) ** 0.5
 
         # use SOH CAH TOA to calculate one angle
-        if what_side_1 == "hypotenuse":
+        angle_1 = math.asin(opposite / hypotenuse)
         
-            if what_side_2 == "opposite":
-                angle_1 = math.asin(side_2 / side_1)
-        
-            elif what_side_2 == "adjacent":
-                angle_1 = math.acos(side_2 / side_1)
-        
-        elif what_side_2 == "hypotenuse":
-            
-            if what_side_1 == "opposite":
-                angle_1 = math.asin(side_1 / side_2)
-        
-            elif what_side_1 == "adjacent":
-                angle_1 = math.acos(side_1 / side_2)
-        
-        else:
-
-            if what_side_1 == "opposite":
-                angle_1 = math.asin(side_1 / side_3)
-            
-            elif what_side_1 == "adjacent":
-                angle_1 = math.acos(side_1 / side_3)
         
         # convert angle from radians to degrees and calculate last angle
         angle_1 = math.degrees(angle_1)
@@ -225,15 +209,16 @@ def mega_epic_cool_triangle_solver():
     angle_1 = unit_format(trail_formatting(angle_1), "°")
     angle_2 = unit_format(trail_formatting(angle_2), "°")
 
-    lengths_1.append(side_1)
-    lengths_2.append(side_2)
-    lengths_3.append(side_3)
+    hyps.append(hypotenuse)
+    adjs.append(adjacent)
+    opps.append(opposite)
     first_angles.append(angle_1)
     second_angles.append(angle_2)
-    
-    print("Side 1:", side_1)
-    print("Side 2:", side_2)
-    print("Side 3:", side_3)
+
+    print()
+    print("Hypotenuse length:", hypotenuse)
+    print("Adjacent length:", adjacent)
+    print("Opposite length:", opposite)
     print("Angle 1:", angle_1)
     print("Angle 2:", angle_2)
 
@@ -262,7 +247,8 @@ trig_valid = [
 side_valid = [
     ["hypotenuse", "hyp", "h"],
     ["opposite", "opp", "o"],
-    ["adjacent", "adj", "a"]
+    ["adjacent", "adj", "a"],
+    ["", "no side", "none"]
 ]
 
 valid_units = [
@@ -284,18 +270,18 @@ trig_pyth_valid = [
 ]
 
 calc_count = []
-lengths_1 = []
-lengths_2 = []
-lengths_3 = []
+hyps = []
+adjs = []
+opps = []
 first_angles = []
 second_angles = []
 
 # set up dictionary for results
 results_dict = {
     "Calculation": calc_count,
-    "Length 1": lengths_1,
-    "Length 2": lengths_2,
-    "Length 3": lengths_3,
+    "Hypotenuse": hyps,
+    "Adjacent": adjs,
+    "Opposite": opps,
     "Angle 1": first_angles,
     "Angle 2": second_angles,
 }
@@ -310,15 +296,16 @@ while keep_going == "yes":
     round_count += 1
     calc_count.append(round_count)
     # ask questions and get triangle answer
-    mega_epic_cool_triangle_solver()
+    triangle_solver()
     
+    print()
     keep_going_help = "If you want to keep going, enter yes, otherwise enter no to exit."
     keep_going = string_checker("Do you want to do another calculation? ", yes_no, "Please enter yes or no.", keep_going_help)
 
 print("\n\n")
 print("**** Triangle Solver Stats ****")
 print()
-results_frame = pandas.DataFrame(results_dict, columns = ['Calculation', 'Length 1', 'Length 2', 'Length 3', 'Angle 1', 'Angle 2'])
+results_frame = pandas.DataFrame(results_dict, columns = ['Calculation', 'Hypotenuse', 'Adjacent', 'Opposite', 'Angle 1', 'Angle 2'])
 results_frame = results_frame.set_index('Calculation')
 print(results_frame)
 

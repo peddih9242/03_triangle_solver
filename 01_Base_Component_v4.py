@@ -107,7 +107,7 @@ def instructions():
     return ""
 
 # calculates whole triangle when given two sides or a side and an angle
-def mega_epic_cool_triangle_solver():
+def triangle_solver():
 
     # get units for triangle lengths
     unit_help = "You should input the units that your lengths have (e.g. centimetres/cm), if you don't have units press <enter> to skip to the next question."
@@ -294,7 +294,7 @@ while keep_going == "yes":
     round_count += 1
     calc_count.append(round_count)
     # ask questions and get triangle answer
-    mega_epic_cool_triangle_solver()
+    triangle_solver()
     
     keep_going_help = "If you want to keep going, enter yes, otherwise enter no to exit."
     keep_going = string_checker("Do you want to do another calculation? ", yes_no, "Please enter yes or no.", keep_going_help)
