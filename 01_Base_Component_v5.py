@@ -59,6 +59,7 @@ def num_check(question, error, high=None):
             if have_high:
                 if response >= high:
                     print(error)
+                    print()
                     continue
 
             return response
@@ -121,7 +122,7 @@ def triangle_solver():
         what_side_1 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.", what_side_help)
         
         if what_side_1 == "":
-            print("Please don't enter blank!")
+            print("Please don't enter blank!\n")
             continue
     
         what_side_2 = string_checker("What side do you have? ", side_valid, "Please enter a valid side.", what_side_help)
@@ -131,13 +132,13 @@ def triangle_solver():
         print("Please don't enter the same sides!")
 
     if what_side_1 == "hypotenuse":
-        hypotenuse = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
+        hypotenuse = num_check("How long is your hypotenuse? ", "Please enter a number above 0.")
     
     elif what_side_1 == "adjacent":
-        adjacent = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
+        adjacent = num_check("How long is your adjacent? ", "Please enter a number above 0.")
     
     elif what_side_1 == "opposite":
-        opposite = num_check("How long is your {}? ".format(what_side_1), "Please enter a number above 0.")
+        opposite = num_check("How long is your opposite? ", "Please enter a number above 0.")
 
     # differentiate between 2 sides and side + angle then calculate the whole triangle
     if what_side_2 == "":
@@ -167,24 +168,28 @@ def triangle_solver():
         # make sure that hypotenuse is the longest side if hypotenuse has been given by user
         while True:
             if what_side_2 == "hypotenuse":
-                hypotenuse = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+                hypotenuse = num_check("How long is your hypotenuse? ", "Please enter a number above 0.")
             
             elif what_side_2 == "opposite":
-                opposite = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+                opposite = num_check("How long is your opposite? ".format(what_side_2), "Please enter a number above 0.")
             
             elif what_side_2 == "adjacent":
-                adjacent = num_check("How long is your {}? ".format(what_side_2), "Please enter a number above 0.")
+                adjacent = num_check("How long is your adjacent? ".format(what_side_2), "Please enter a number above 0.")
 
-            if what_side_1 == "opposite" or what_side_2 == "opposite":
+            if what_side_1 == "opposite" and what_side_2 == "hypotenuse" or what_side_2 == "opposite" and what_side_1 == "hypotenuse":
                 if opposite < hypotenuse:
                     break
             
-            elif what_side_1 == "adjacent" or what_side_2 == "adjacent":
+            elif what_side_1 == "adjacent" and what_side_2 == "hypotenuse" or what_side_2 == "adjacent" and what_side_1 == "hypotenuse":
                 if adjacent < hypotenuse:
                     break
+            
+            elif what_side_1 == "adjacent" and what_side_2 == "opposite" or what_side_1 == "opposite" and what_side_2 == "adjacent":
+                break
 
             print("Please make sure your hypotenuse is the longest side!")
-
+            print()
+            
         # use pythagoras to calculate the third side
         if what_side_1 == "hypotenuse" and what_side_2 == "opposite" or what_side_1 == "opposite" and what_side_2 == "hypotenuse":
             adjacent = ((hypotenuse ** 2) - (opposite ** 2)) ** 0.5
@@ -248,7 +253,7 @@ side_valid = [
     ["hypotenuse", "hyp", "h"],
     ["opposite", "opp", "o"],
     ["adjacent", "adj", "a"],
-    ["", "no side", "none"]
+    ["", "no side"]
 ]
 
 valid_units = [
